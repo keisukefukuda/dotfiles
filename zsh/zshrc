@@ -1,0 +1,182 @@
+# Lines configured by zsh-newuser-install
+HISTFILE=~/.histfile
+HISTSIZE=100000
+SAVEHIST=100000
+
+hostname | egrep '^t2a' > /dev/null && fpath=($HOME/local/share/zsh/5.0.0/functions)
+
+setopt append_history
+setopt autocd
+setopt share_history
+setopt hist_ignore_dups
+setopt NO_flow_control
+setopt interactive_comments
+setopt magic_equal_subst
+setopt print_eightbit
+setopt extended_glob
+
+unsetopt beep
+bindkey -e
+
+setopt autopushd pushdminus pushdsilent pushdtohome
+
+fignore=(.o .d .aux .log .toc)
+
+# End of lines configured by zsh-newuser-install
+# The following lines were added by compinstall
+zstyle :compinstall filename '/home/kei/.zshrc'
+zstyle ':completion:*' verbose yes
+zstyle ':completion:*:descriptions' format '%B%d%b'
+zstyle ':completion:*:messages' format '%d'
+zstyle ':completion:*:warnings' format 'No matches for:%d'
+zstyle ':completion:*' group-name ''
+
+autoload -Uz zmv
+alias zmv='noglob zmv -W'
+
+autoload -Uz compinit
+compinit -u
+
+autoload -U colors && colors
+
+autoload -Uz zmv
+alias zmv='noglob zmv -W'
+
+# aliases
+alias ls='ls -FG'
+alias ll='ls -laF'
+alias la='ls -aG'
+alias lv='lv -Ou8'
+alias pelr='perl'
+alias amke='make'
+alias mkae='make'
+alias mkdri='mkdir'
+alias svnst='svn st'
+alias sc='screen'
+alias em='emacs -nw'
+alias gt='gnome-terminal&'
+alias Less="less"
+
+alias ga='git add'
+alias gp='git push'
+alias gl='git log'
+alias gs='git status'
+alias gd='git diff'
+alias gdc='git diff --cached'
+
+export LANG=en_US.UTF-8
+export LC_CTYPE="en_US.UTF-8"
+if [ -f $HOME/local/emacs ]; then
+	alias emacs="$HOME/local/bin/emacs"
+	alias em="$HOME/local/bin/emacs"
+fi
+
+export PATH=$HOME/bin:$HOME/repository/bin:$HOME/local/bin:$HOME/local/cuda/bin:$PATH
+if [ -d "$HOME/local" ]; then
+	export LD_RUN_PATH=$LD_RUN_PATH:$HOME/local/lib
+	export LD_LIBRARY_PATH=$LD_PATH:$HOME/local/lib
+	export MANPATH=$MANPATH:$HOME/local/share/man
+fi
+
+# Python settings
+export PYTHONIOENCODING='utf8'
+if [ -d $HOME/local/python/env ]; 
+then
+	. $HOME/local/python/env/bin/activate
+fi
+
+export PATH=/usr/local/cuda/bin:$PATH
+export LD_LIBRARY_PATH=/usr/local/cuda/lib64:$LD_LIBRARY_PATH
+
+export MANPATH=$MANPATH:$HOME/local/share/man
+
+# pkgconfig
+if [ -d $HOME/local/lib/pkgconfig ]; then
+	export PKG_CONFIG_PATH=$HOME/local/lib/pkgconfig:$PKG_CONFIG
+fi
+
+# TeX Live
+TEXLIVE_ROOT=/usr/local/texlive
+for d in ${TEXLIVE_ROOT}/2011 ${TEXLIVE_ROOT}/2012; do
+	if [ -d ${d} ]; then
+		TEXLIVE_DIR=${d}
+	fi
+done
+
+if [ -d "${TEXLIVE_DIR}" ]; then
+	platex=`find ${TEXLIVE_DIR}/bin -maxdepth 2 -name "platex" \( -type f -or -type l \) | head -n 1`
+	if [ -x "${platex}" ]; then
+	    export PATH=`dirname "${platex}"`:$PATH
+	fi
+fi
+
+export SVN_EDITOR=emacs
+export PERL_BADLANG=0
+export EDITOR=vi
+export PAGER=less
+export MAILCHECK=0
+
+export HREF_DATADIR=$HOME/local/share/doc/href
+
+if which xset &>/dev/null; then xset b off >/dev/null 2>&1; fi
+
+export GTK_IM_MODULE=ibus
+export XMODIFIERS=@im=ibus
+export QT_IM_MODULE=ibus
+
+#----------------------------------------------------------------------------
+# Prompt settings
+
+export RPROMPT='[%~]'
+# This zsh function is called whenever changing directories and
+# shows the current git branch in the prompt
+
+function findup()
+{
+        arg="$1"
+        if test -z "$arg"; then exit 1; fi
+ 
+        while ! test -e "$arg"; do
+         cd ..
+         if test "$PWD" = "/"; then
+            exit 1
+         fi
+        done
+ 
+        echo $PWD/$arg 
+}
+
+function precmd()
+{
+    # Adjust this to your current preferred prompt
+    PROMPT="%n@%{$terminfo[bold]%}%M%{$terminfo[sgr0]%}:%l"
+    local _git _branch
+
+    # This call requires the "findup" script from http://www.davidfaure.fr/scripts
+    _git=`findup .git`
+
+    if test -n "$_git"; then
+        _branch=`sed -e 's,.*/,,' $_git/HEAD`
+        PROMPT="$PROMPT %{$fg[yellow]%}[git:$_branch]%{$reset_color%}"
+    fi
+
+    # Alternative solution, from Mike Arthur: something like:
+    # BRANCH_REFS=$(git symbolic-ref HEAD 2>/dev/null); PROMPT="$PROMPT (${BRANCH_REFS#refs/heads/})"
+
+    # Add final character after the optional git branch (usually # or >)
+    export PROMPT="%{$fg[green]%}$PROMPT%{$reset_color%}
+ %(!.#.$) "
+}
+
+#-----------------------------------------------------------
+# Read environment-dependent zshrc files
+
+if [ -f $HOME/.zsh.local ]; then
+  source $HOME/.zsh.local
+fi
+
+if [ -f $HOME/.zshrc.local ]; then
+  source $HOME/.zshrc.local
+fi
+
+PATH=$PATH:$HOME/.rvm/bin # Add RVM to PATH for scripting
