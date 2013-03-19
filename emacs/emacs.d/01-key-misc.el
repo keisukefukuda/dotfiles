@@ -20,7 +20,3 @@
 (show-paren-mode t)
 (setq transient-mark-mode t)
 
-;; Font settings
-(set-face-attribute 'default nil
-                    :family "inconsolata"
-                    )

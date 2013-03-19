@@ -1,3 +1,4 @@
 ;; Fonts settings
-(set-face-attribute 'default nil :family "Inconsolata" :height 105)
+(set-face-attribute 'default nil :family "Inconsolata" :height 140)
+
 
