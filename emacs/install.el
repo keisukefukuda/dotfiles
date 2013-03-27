@@ -20,5 +20,6 @@
 (check-install 'js2-mode)
 (check-install 'markdown-mode)
 (check-install 'markdown-mode)
+(check-install 'slime)
 
 (check-install 'flymake-jslint)
