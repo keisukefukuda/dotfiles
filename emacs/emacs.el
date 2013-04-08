@@ -40,14 +40,10 @@
 
 ;;;;;;;;;;;;;;;;;;;; Misc settings
 
-(if (fboundp 'xterm-mouse-mode)
-    (xterm-mouse-mode t))
-(if (fboundp 'mouse-wheel-mode)
-    (mouse-wheel-mode t))
-(if (fboundp 'menu-bar-mode)
-    (menu-bar-mode 0))
-(if (fboundp 'tool-bar-mode)
-    (tool-bar-mode 0))
+(if (fboundp 'xterm-mouse-mode) (xterm-mouse-mode t))
+(if (fboundp 'mouse-wheel-mode) (mouse-wheel-mode t))
+(if (fboundp 'menu-bar-mode)    (menu-bar-mode 0))
+(if (fboundp 'tool-bar-mode)    (tool-bar-mode 0))
 
 (setq inhibit-startup-message t)
 (setq make-backup-files nil)
