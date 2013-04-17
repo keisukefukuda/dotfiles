@@ -64,3 +64,34 @@
 (add-to-list 'backup-directory-alist
 						 (cons tramp-file-name-regexp nil))
 
+
+(add-to-list 'auto-mode-alist '("[.]md$" . markdown-mode))
+
+(defun find-command (progname)
+  (let ((cmd (concat "which " progname)))
+		(with-temp-buffer
+			(call-process "/bin/sh" nil (current-buffer) nil "-c" cmd)
+      (let ((str (buffer-string)))
+        (while (string-match "[ \t\n]$" str)
+          (setq str (replace-match "" t t str)))
+        str))))
+
+(when (fboundp 'slime)
+	(let ((sbcl (find-command "sbcl")))
+	(if (not (string= "" sbcl))
+			(setq inferior-lisp-program sbcl)
+		nil)))
+
+
+;;; Haskell-mode
+(require 'haskell-mode)
+(require 'flymake-haskell-multi)
+(add-hook 'haskell-mode-hook 'flymake-haskell-multi-load)
+(custom-set-variables
+ '(haskell-mode-hook '(turn-on-haskell-indentation)))
+
+;;; helm-mode
+(require 'helm-config)
+(helm-mode 1)
+;(global-set-key (kbd "M-x") 'helm-mini)
+
