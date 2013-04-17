@@ -103,11 +103,11 @@ for d in ${TEXLIVE_ROOT}/2011 ${TEXLIVE_ROOT}/2012; do
 	fi
 done
 
-if [ -d "${TEXLIVE_DIR}" ]; then
-	platex=`find ${TEXLIVE_DIR}/bin -maxdepth 2 -name "platex" \( -type f -or -type l \) | head -n 1`
-	if [ -x "${platex}" ]; then
-	    export PATH=`dirname "${platex}"`:$PATH
-	fi
+pdflatex=`echo ${TEXLIVE_DIR}/bin/x86*/pdflatex`
+
+if [ -x "${pdflatex}" ]; then
+		# make sure that the latest TeXLive installation is used
+	  export PATH=`dirname "${pdflatex}"`:$PATH
 fi
 
 export SVN_EDITOR=emacs
