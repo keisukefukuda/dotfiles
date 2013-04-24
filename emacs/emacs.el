@@ -92,6 +92,9 @@
 
 ;;; helm-mode
 (require 'helm-config)
+(require 'helm-command)
+;(require 'helm-descbinds)
+
 (helm-mode 1)
-;(global-set-key (kbd "M-x") 'helm-mini)
+
 
