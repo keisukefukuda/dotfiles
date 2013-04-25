@@ -16,4 +16,4 @@ cat <<EOF >${HOME}/.emacs
 (load "${DIR}/emacs.el")
 EOF
 
-emacs --script "${DIR}/install.el"
+emacs -nw --script "${DIR}/install.el"
