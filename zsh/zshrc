@@ -74,7 +74,7 @@ fi
 export PATH=$HOME/bin:$HOME/repository/bin:$HOME/local/bin:$HOME/local/cuda/bin:$PATH
 if [ -d "$HOME/local" ]; then
 	export LD_RUN_PATH=$LD_RUN_PATH:$HOME/local/lib
-	export LD_LIBRARY_PATH=$LD_PATH:$HOME/local/lib
+	export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:$HOME/local/lib
 	export MANPATH=$MANPATH:$HOME/local/share/man
 fi
 
@@ -97,7 +97,7 @@ fi
 
 # TeX Live
 TEXLIVE_ROOT=/usr/local/texlive
-for d in ${TEXLIVE_ROOT}/2011 ${TEXLIVE_ROOT}/2012; do
+for d in ${TEXLIVE_ROOT}/2012 ${TEXLIVE_ROOT}/2013; do
 	if [ -d ${d} ]; then
 		TEXLIVE_DIR=${d}
 	fi
@@ -133,17 +133,24 @@ export RPROMPT='[%~]'
 
 function findup()
 {
-        arg="$1"
-        if test -z "$arg"; then exit 1; fi
- 
-        while ! test -e "$arg"; do
-         cd ..
-         if test "$PWD" = "/"; then
+    arg="$1"
+    if test -z "$arg"; then exit 1; fi
+
+    cnt=0
+    while ! test -e "$arg"; do
+        cd ..
+        if test "$PWD" = "/"; then
             exit 1
-         fi
-        done
- 
-        echo $PWD/$arg 
+        fi
+        cnt=`expr ${cnt} + 1`
+
+        if [ ${cnt} -gt 30 ]; then
+            echo ""
+            return
+        fi
+    done
+    
+    echo $PWD/$arg 
 }
 
 function precmd()
@@ -167,6 +174,15 @@ function precmd()
     export PROMPT="%{$fg[green]%}$PROMPT%{$reset_color%}
  %(!.#.$) "
 }
+
+#----------------------------------------------------------
+# mozc tools
+
+if [ -d /usr/lib/mozc ]; then
+    alias mozc-config="/usr/lib/mozc/mozc_tool -mode=config_dialog"
+    alias mozc-dict="/usr/lib/mozc/mozc_tool --mode=dictionary_tool"
+fi
+
 
 #-----------------------------------------------------------
 # Read environment-dependent zshrc files

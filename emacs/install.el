@@ -20,10 +20,20 @@
 (check-install 'helm)
 (check-install 'helm-descbinds)
 
-(check-install 'slime)
+(check-install 'nrepl)
+(check-install 'ac-nrepl)
+(check-install 'clojure-mode)
+(check-install 'nrepl-ritz)
+(check-install 'melpa)
+(check-install 'rainbow-delimiters)
+
 (check-install 'haskell-mode)
 (check-install 'flymake-haskell-multi)
 
 (check-install 'js2-mode)
 (check-install 'flymake-jslint)
+
+(check-install 'cl)
+(check-install 'go-mode)
+
 
