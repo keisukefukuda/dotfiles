@@ -1,3 +1,5 @@
+;;; Copied from http://ianeslick.com/2013/05/17/clojure-debugging-13-emacs-nrepl-and-ritz
+
 (require 'nrepl)
 
 (setq nrepl-hide-special-buffers t)
@@ -20,5 +22,3 @@
   '(add-to-list 'ac-modes 'nrepl-mode))
 (add-hook 'nrepl-mode-hook 'ac-nrepl-setup)
 
-(add-hook 'nrepl-interaction-mode-hook (defun my-nrepl-mode-setup ()
-                                         (require 'nrepl-ritz)))
