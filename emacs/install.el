@@ -30,6 +30,10 @@
 (check-install 'haskell-mode)
 (check-install 'flymake-haskell-multi)
 
+(check-install 'clojure-mode)
+(check-install 'nrepl)
+(check-install 'nrepl-ritz)
+
 (check-install 'js2-mode)
 (check-install 'flymake-jslint)
 
