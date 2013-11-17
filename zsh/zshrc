@@ -196,6 +196,24 @@ function update_haskell_packages() {
     done
 }
 
+function mkdirx () {
+    mkdir "$1" && cd "$1"
+}
+
+
+function bzhead() {
+    fn="$1"
+    shift
+    bzcat $fn | head $*
+}
+
+function bztail() {
+    fn="$1"
+    shift
+    bzcat $fn | tail $*
+}
+
+
 #-----------------------------------------------------------
 # Read environment-dependent zshrc files
 
