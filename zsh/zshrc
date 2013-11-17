@@ -213,6 +213,10 @@ function bztail() {
     bzcat $fn | tail $*
 }
 
+function today() {
+     date +%Y%m%d
+}
+
 
 #-----------------------------------------------------------
 # Read environment-dependent zshrc files
