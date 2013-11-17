@@ -15,6 +15,7 @@
   (when (not (package-installed-p pkg))
     (package-install pkg)))
 
+(check-install 'guess-offset)
 (check-install 'cmake-mode)
 (check-install 'markdown-mode)
 (check-install 'helm)

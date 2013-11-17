@@ -45,6 +45,8 @@
 (if (fboundp 'menu-bar-mode)    (menu-bar-mode 0))
 (if (fboundp 'tool-bar-mode)    (tool-bar-mode 0))
 
+(setq mac-command-modifier 'meta)
+
 (setq inhibit-startup-message t)
 (setq make-backup-files nil)
 (setq auto-save-default nil)
@@ -65,6 +67,8 @@
 						 (cons tramp-file-name-regexp nil))
 
 
+
+;;; Markdown-mode
 (add-to-list 'auto-mode-alist '("[.]md$" . markdown-mode))
 
 (defun find-command (progname)
@@ -91,10 +95,9 @@
  '(haskell-mode-hook '(turn-on-haskell-indentation)))
 
 ;;; helm-mode
-(require 'helm-config)
-(require 'helm-command)
+;(require 'helm-config)
+;(require 'helm-command)
 ;(require 'helm-descbinds)
 
-(helm-mode 1)
-
+;(helm-mode 1)
 
