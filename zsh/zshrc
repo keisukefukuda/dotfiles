@@ -100,7 +100,7 @@ for d in ${TEXLIVE_ROOT}/2012 ${TEXLIVE_ROOT}/2013; do
 	fi
 done
 
-pdflatex=`echo ${TEXLIVE_DIR}/bin/x86*/pdflatex`
+pdflatex=`find ${TEXLIVE_DIR}/bin/ -name pdflatex | head -n 1`
 
 if [ -x "${pdflatex}" ]; then
 		# make sure that the latest TeXLive installation is used
