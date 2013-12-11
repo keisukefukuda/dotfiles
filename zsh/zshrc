@@ -44,7 +44,7 @@ autoload -Uz zmv
 alias zmv='noglob zmv -W'
 
 # aliases
-alias ls='ls -FG'
+alias ls='ls -FG --color'
 alias ll='ls -laF'
 alias la='ls -aG'
 alias lv='lv -Ou8'
