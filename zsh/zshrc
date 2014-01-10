@@ -3,7 +3,12 @@ HISTFILE=~/.histfile
 HISTSIZE=100000
 SAVEHIST=100000
 
-hostname | egrep '^t2a' > /dev/null && fpath=($HOME/local/share/zsh/5.0.0/functions)
+#hostname | egrep '^t2a' > /dev/null && fpath=($HOME/local/share/zsh/5.0.0/functions)
+
+# Look for zsh fpath directories
+for d in $(find $HOME/local/share/zsh -type d -name "functions"); do
+  fpath=($d ${fpath})
+done
 
 setopt append_history
 setopt autocd
