@@ -77,7 +77,7 @@ if [ -f $HOME/local/emacs ]; then
 	alias em="$HOME/local/bin/emacs"
 fi
 
-export PATH=$HOME/bin:$HOME/repository/bin:$HOME/local/bin:$HOME/local/cuda/bin:$PATH
+export PATH=$HOME/bin:$HOME/local/bin:/usr/local/bin:$HOME/local/cuda/bin:$PATH
 if [ -d "$HOME/local" ]; then
 	export LD_RUN_PATH=$LD_RUN_PATH:$HOME/local/lib
 	export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:$HOME/local/lib
@@ -99,17 +99,13 @@ fi
 
 # TeX Live
 TEXLIVE_ROOT=/usr/local/texlive
-for d in ${TEXLIVE_ROOT}/2012 ${TEXLIVE_ROOT}/2013; do
-	if [ -d ${d} ]; then
-		TEXLIVE_DIR=${d}
-	fi
-done
+if [ -d $TEXLIVE_ROOT ]; then
+	pdflatex=`find ${TEXLIVE_ROOT}/20*/bin -name "pdflatex" | sort -r | head -n 1`
 
-pdflatex=`find ${TEXLIVE_DIR}/bin/ -name pdflatex | head -n 1`
-
-if [ -x "${pdflatex}" ]; then
+	if [ -x "${pdflatex}" ]; then
 		# make sure that the latest TeXLive installation is used
 	  export PATH=`dirname "${pdflatex}"`:$PATH
+	fi
 fi
 
 export SVN_EDITOR=emacs
@@ -133,26 +129,34 @@ export RPROMPT='[%~]'
 # This zsh function is called whenever changing directories and
 # shows the current git branch in the prompt
 
+function dirlevel()
+{
+    if [ $PWD = "/" ]; then
+        echo 0
+        exit
+    fi
+
+    grep -o "/" <<<"$PWD" | wc -l
+}
+
+
 function findup()
 {
-    arg="$1"
-    if test -z "$arg"; then exit 1; fi
+        arg="$1"
+        if test -z "$arg"; then exit 1; fi
+ 
+        while ! test -e "$arg"; do
+           # Stop if we are on upper than 2 level directories
+           lv=`dirlevel`
+           if [ "$lv" -le 2 ]; then exit; fi
 
-    cnt=0
-    while ! test -e "$arg"; do
-        cd ..
-        if test "$PWD" = "/"; then
-            exit 1
-        fi
-        cnt=`expr ${cnt} + 1`
-
-        if [ ${cnt} -gt 30 ]; then
-            echo ""
-            return
-        fi
-    done
-    
-    echo $PWD/$arg 
+           cd ..
+           if test "$PWD" = "/"; then
+              exit 1
+           fi
+        done
+ 
+        echo $PWD/$arg 
 }
 
 function precmd()
@@ -234,4 +238,6 @@ if [ -f $HOME/.zshrc.local ]; then
   source $HOME/.zshrc.local
 fi
 
-PATH=$PATH:$HOME/.rvm/bin # Add RVM to PATH for scripting
+today () {
+	date +%Y%m%d
+}
