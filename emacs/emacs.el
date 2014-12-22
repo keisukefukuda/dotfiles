@@ -1,27 +1,17 @@
-;;;;;;;;;;;;;;;;;;; package.el
-
-(when (< emacs-major-version 24)
-  (let* ((pwd (file-name-as-directory (file-name-directory load-file-name)))
-         (pkg-el (concat pwd "package.el")))
-    (load pkg-el)))
-
-(require 'package)
-
-(add-to-list 'package-archives '("melpa" . "http://melpa.milkbox.net/packages/") t)
-(add-to-list 'package-archives '("marmalade" . "http://marmalade-repo.org/packages/"))
-
-(package-initialize)
 
 ;;;;;;;;;;;;;;;;;;; load all local *.el files
 
 (let ((dot-file-dir (file-name-directory load-file-name)))
   (let ((dot-emacs-d  (concat (file-name-as-directory dot-file-dir) "emacs.d")))
+    (setq elisp-root dot-file-dir)
     (setq elisp-dir
-					(file-name-as-directory dot-emacs-d))))
+      (file-name-as-directory dot-emacs-d))))
+
+(require 'cask)
+(cask-initialize elisp-root)
 
 (add-to-list 'load-path elisp-dir)
 
-;;;;;;;;;;;;;;;;;;; Prepare some utilities and load files
 (defmacro exec-if-bound (sexplist)
 	"execute only if the function is bound."
   `(if (fboundp (car ',sexplist))
@@ -38,10 +28,13 @@
 	(dolist (file elisp-to-load)
 		(load-safe file)))
 
+
 ;;;;;;;;;;;;;;;;;;;; Misc settings
 
+(require 'mouse)
 (if (fboundp 'xterm-mouse-mode) (xterm-mouse-mode t))
 (if (fboundp 'mouse-wheel-mode) (mouse-wheel-mode t))
+
 (if (fboundp 'menu-bar-mode)    (menu-bar-mode 0))
 (if (fboundp 'tool-bar-mode)    (tool-bar-mode 0))
 
@@ -100,4 +93,7 @@
 ;(require 'helm-descbinds)
 
 ;(helm-mode 1)
+
+;;; workaround for the error "controlPath too long" when using tramp
+(setenv "TMPDIR" "/tmp")
 
