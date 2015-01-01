@@ -97,3 +97,13 @@
 ;;; workaround for the error "controlPath too long" when using tramp
 (setenv "TMPDIR" "/tmp")
 
+(require 'cc-mode)
+(add-hook 'c++-mode-hook
+          '(lambda()
+             (c-set-style "stroustrup")
+             (setq indent-tabs-mode nil)
+             (c-set-offset 'innamespace 0)   ; namespace {}の中はインデントしない
+             (c-set-offset 'arglist-close 0) ; 引数リストの閉じ括弧はインデントしない
+             ))
+
+

@@ -7,9 +7,9 @@ SAVEHIST=100000
 
 # Look for zsh fpath directories
 if [ -d $HOME/local/share/zsh ]; then
-for d in $(find $HOME/local/share/zsh -type d -name "functions"); do
-  fpath=($d ${fpath})
-done
+  for d in $(find $HOME/local/share/zsh -type d -name "functions"); do
+    fpath=($d ${fpath})
+  done
 fi
 
 setopt append_history
@@ -51,7 +51,13 @@ autoload -Uz zmv
 alias zmv='noglob zmv -W'
 
 # aliases
-alias ls='ls -FG --color'
+# check if ls accept --color option
+ls --color >/dev/null 2>&1
+if [ "$?" -eq 0 ]; then
+	alias ls='ls -FG --color'
+else
+	alias ls='ls -FG'
+fi
 alias ll='ls -laF'
 alias la='ls -aG'
 alias lv='lv -Ou8'
