@@ -92,6 +92,14 @@ if [ -d "$HOME/local" ]; then
 	export MANPATH=$MANPATH:$HOME/local/share/man
 fi
 
+if [ -d /opt/local/bin ]; then
+	export PATH=/opt/local/bin:$PATH
+fi
+
+if [ -d $HOME/.cask/bin ]; then
+	export PATH="$HOME/.cask/bin:$PATH"
+fi
+
 # Python settings
 export PYTHONIOENCODING='utf8'
 
