@@ -1,3 +1,5 @@
+(require 'cask)
+(cask-initialize "~/.cask")
 
 ;;;;;;;;;;;;;;;;;;; load all local *.el files
 
@@ -6,9 +8,6 @@
     (setq elisp-root dot-file-dir)
     (setq elisp-dir
       (file-name-as-directory dot-emacs-d))))
-
-(require 'cask)
-(cask-initialize elisp-root)
 
 (add-to-list 'load-path elisp-dir)
 

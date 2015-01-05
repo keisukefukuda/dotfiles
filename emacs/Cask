@@ -1,6 +1,22 @@
 (source gnu)
 (source melpa)
 
+(package-file "cask.el")
+
+;; (files "*.el" "bin" "templates")
+
+(development
+ (depends-on "f")
+ (depends-on "s")
+ (depends-on "dash")
+ (depends-on "ansi")
+ (depends-on "ecukes")
+ (depends-on "servant")
+ (depends-on "ert-runner")
+ (depends-on "el-mock")
+ (depends-on "noflet")
+ (depends-on "ert-async")
+
 (depends-on "bind-key")
 (depends-on "cask")
 (depends-on "cmake-mode")
@@ -23,19 +39,17 @@
 (depends-on "s")
 (depends-on "smartparens")
 (depends-on "smex")
+;(depends-on "shut-up")
 (depends-on "use-package")
 (depends-on "web-mode")
 (depends-on "yasnippet")
-(depends-on "haskell-mode")
-(depends-on "flymake-haskell-multi")
 
 (depends-on "clojure-mode")
 (depends-on "cider")
-(depends-on "ac-nrepl")
 (depends-on "clojure-cheatsheet")
-(depends-on "clojure-test-mode")
 (depends-on "slamhound")
 
 ;; Clojureに用途が限定されたパッケージではないが必要なもの
 (depends-on "smartparens")
 (depends-on "rainbow-delimiters")
+)

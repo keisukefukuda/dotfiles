@@ -1,7 +1,4 @@
-(load "~/repository/dot_files/emacs.el")
-
-(set-default-font "DejaVu Sans Mono-9")
-;(set-fontset-font (frame-parameter nil 'font)
-;                  'japanese-jisx0208
-;                  '("VL ゴシック" . "unicode-bmp"))
+(add-to-list 'load-path "~/dotfiles/emacs")
+(add-to-list 'load-path "~/.cask/")
+(load "emacs.el")
 
