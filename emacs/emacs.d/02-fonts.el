@@ -3,8 +3,8 @@
 
 
 ;;;(load-theme 'solarized-light t)
-;;;(load-theme 'tango)
-(load-theme 'misterioso)
+;(load-theme 'tango)
+(load-theme 'manoj-dark)
 
 
 

@@ -1,4 +1,3 @@
 (add-to-list 'load-path "~/dotfiles/emacs")
-(add-to-list 'load-path "~/.cask/")
 (load "emacs.el")
 

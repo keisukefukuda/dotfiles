@@ -45,7 +45,7 @@
 (depends-on "yasnippet")
 
 (depends-on "clojure-mode")
-(depends-on "cider")
+(depends-on "cider" "0.8.2")
 (depends-on "clojure-cheatsheet")
 (depends-on "slamhound")
 

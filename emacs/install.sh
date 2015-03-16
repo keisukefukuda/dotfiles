@@ -13,3 +13,6 @@ rm ~/.cask/Cask
 ln -s ~/dotfiles/emacs/Cask ~/.cask/Cask
 ln -s ~/dotfiles/emacs/dot_emacs ~/.emacs
 
+cd ~/.cask
+cask install
+

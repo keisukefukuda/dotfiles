@@ -1,4 +1,4 @@
-(require 'cask)
+(require 'cask "~/.cask/cask.el")
 (cask-initialize "~/.cask")
 
 ;;;;;;;;;;;;;;;;;;; load all local *.el files
@@ -80,11 +80,11 @@
 
 
 ;;; Haskell-mode
-(require 'haskell-mode)
-(require 'flymake-haskell-multi)
-(add-hook 'haskell-mode-hook 'flymake-haskell-multi-load)
-(custom-set-variables
- '(haskell-mode-hook '(turn-on-haskell-indentation)))
+; (require 'haskell-mode)
+; (require 'flymake-haskell-multi)
+; (add-hook 'haskell-mode-hook 'flymake-haskell-multi-load)
+; (custom-set-variables
+ ; '(haskell-mode-hook '(turn-on-haskell-indentation)))
 
 ;;; helm-mode
 ;(require 'helm-config)
@@ -95,14 +95,4 @@
 
 ;;; workaround for the error "controlPath too long" when using tramp
 (setenv "TMPDIR" "/tmp")
-
-(require 'cc-mode)
-(add-hook 'c++-mode-hook
-          '(lambda()
-             (c-set-style "stroustrup")
-             (setq indent-tabs-mode nil)
-             (c-set-offset 'innamespace 0)   ; namespace {}の中はインデントしない
-             (c-set-offset 'arglist-close 0) ; 引数リストの閉じ括弧はインデントしない
-             ))
-
 

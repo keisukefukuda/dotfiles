@@ -19,3 +19,12 @@
 (setq auto-mode-alist
       (append '(("\\.cu" . c++-mode)) auto-mode-alist))
 
+(require 'cc-mode)
+(load "google-c-style.el")
+(add-hook 'c-mode-common-hook
+          '(lambda()
+             (google-set-c-style)))
+
+(setq auto-mode-alist
+      (append '(("\\.h" . c++-mode)) auto-mode-alist))
+
