@@ -28,3 +28,5 @@
 (setq auto-mode-alist
       (append '(("\\.h" . c++-mode)) auto-mode-alist))
 
+(c-set-offset 'inextern-lang 0)
+

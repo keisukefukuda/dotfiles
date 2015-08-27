@@ -27,12 +27,46 @@
 	(dolist (file elisp-to-load)
 		(load-safe file)))
 
+(define-minor-mode sticky-buffer-mode
+  "Make the current window always display this buffer."
+  nil " sticky" nil
+  (set-window-dedicated-p (selected-window) sticky-buffer-mode))
+
 
 ;;;;;;;;;;;;;;;;;;;; Misc settings
 
-(require 'mouse)
-(if (fboundp 'xterm-mouse-mode) (xterm-mouse-mode t))
-(if (fboundp 'mouse-wheel-mode) (mouse-wheel-mode t))
+(unless window-system
+	(require 'mouse)
+	(if (fboundp 'xterm-mouse-mode) (xterm-mouse-mode t))
+	(if (fboundp 'mouse-wheel-mode) (mouse-wheel-mode t))
+
+	(global-set-key [mouse-4] '(lambda()
+															 (interactive)
+															 (scroll-down 1)))
+	(global-set-key [mouse-5] '(lambda()
+															 (interactive)
+															 (scroll-up 1)))
+
+	(defun track-mouse (e))
+	(setq mouse-sel-mode t))
+
+;; OSX clip board integration
+(if (eq system-type 'darwin)
+    (progn
+      (defun pbcopy ()
+	(interactive)
+	(call-process-region (point) (mark) "pbcopy")
+	(setq deactivate-mark t))
+  
+      (defun pbpaste ()
+	(interactive)
+	(call-process-region (point) (if mark-active (mark) (point)) "pbpaste" t t))
+      
+      (defun pbcut ()
+	(interactive)
+	(pbcopy)
+	(delete-region (region-beginning) (region-end)))))
+	
 
 (if (fboundp 'menu-bar-mode)    (menu-bar-mode 0))
 (if (fboundp 'tool-bar-mode)    (tool-bar-mode 0))
@@ -56,42 +90,10 @@
 
 (require 'tramp)
 (add-to-list 'backup-directory-alist
-						 (cons tramp-file-name-regexp nil))
+	 (cons tramp-file-name-regexp nil))
 
-
-
-;;; Markdown-mode
-(add-to-list 'auto-mode-alist '("[.]md$" . markdown-mode))
-
-(defun find-command (progname)
-  (let ((cmd (concat "which " progname)))
-		(with-temp-buffer
-			(call-process "/bin/sh" nil (current-buffer) nil "-c" cmd)
-      (let ((str (buffer-string)))
-        (while (string-match "[ \t\n]$" str)
-          (setq str (replace-match "" t t str)))
-        str))))
-
-(when (fboundp 'slime)
-	(let ((sbcl (find-command "sbcl")))
-	(if (not (string= "" sbcl))
-			(setq inferior-lisp-program sbcl)
-		nil)))
-
-
-;;; Haskell-mode
-; (require 'haskell-mode)
-; (require 'flymake-haskell-multi)
-; (add-hook 'haskell-mode-hook 'flymake-haskell-multi-load)
-; (custom-set-variables
- ; '(haskell-mode-hook '(turn-on-haskell-indentation)))
-
-;;; helm-mode
-;(require 'helm-config)
-;(require 'helm-command)
-;(require 'helm-descbinds)
-
-;(helm-mode 1)
+;;(setq windmove-wrap-around t)
+(windmove-default-keybindings)
 
 ;;; workaround for the error "controlPath too long" when using tramp
 (setenv "TMPDIR" "/tmp")

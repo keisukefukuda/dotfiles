@@ -1,8 +1,14 @@
 ;;;;;;;;;;;;;;;;;;;; Key bindings
 
+(defun previous-window ()
+  "Go to the previous window"
+  (interactive)
+  (other-window -1))
+
 (global-set-key "\C-h" 'delete-backward-char)
 (global-set-key "\M-?" 'help-command)
 (global-set-key "\C-x\C-i" 'indent-region)
+(global-set-key "\C-xp" 'previous-window)
 
 
 (column-number-mode t)

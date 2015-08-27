@@ -5,19 +5,19 @@
 
 ;; (files "*.el" "bin" "templates")
 
-(development
- (depends-on "f")
- (depends-on "s")
- (depends-on "dash")
- (depends-on "ansi")
- (depends-on "ecukes")
- (depends-on "servant")
- (depends-on "ert-runner")
- (depends-on "el-mock")
- (depends-on "noflet")
- (depends-on "ert-async")
+(depends-on "f")
+(depends-on "s")
+(depends-on "dash")
+(depends-on "ansi")
+(depends-on "ecukes")
+(depends-on "servant")
+(depends-on "ert-runner")
+(depends-on "el-mock")
+(depends-on "noflet")
+(depends-on "ert-async")
 
 (depends-on "bind-key")
+(depends-on "bison-mode")
 (depends-on "cask")
 (depends-on "cmake-mode")
 (depends-on "dash")
@@ -37,19 +37,23 @@
 (depends-on "prodigy")
 (depends-on "projectile")
 (depends-on "s")
-(depends-on "smartparens")
 (depends-on "smex")
-;(depends-on "shut-up")
 (depends-on "use-package")
 (depends-on "web-mode")
 (depends-on "yasnippet")
+(depends-on "yaml-mode")
 
+(depends-on "cider"
+	    :git "https://github.com/clojure-emacs/cider.git"
+	    :ref "89e6217a1edc143af74fef58f7c3ff6260e8d43b")
+(depends-on "ac-cider")
 (depends-on "clojure-mode")
-(depends-on "cider" "0.8.2")
 (depends-on "clojure-cheatsheet")
+(depends-on "smartparens")
 (depends-on "slamhound")
+(depends-on "paredit")
+
+(depends-on "markdown-mode")
 
 ;; Clojureに用途が限定されたパッケージではないが必要なもの
-(depends-on "smartparens")
 (depends-on "rainbow-delimiters")
-)
