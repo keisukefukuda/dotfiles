@@ -147,7 +147,7 @@ export RPROMPT='[%~]'
 
 function dirlevel()
 {
-    if [ $PWD = "/" ]; then
+    if [ "$PWD" = "/" ]; then
         echo 0
         exit
     fi
