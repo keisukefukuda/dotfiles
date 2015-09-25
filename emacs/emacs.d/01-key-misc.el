@@ -25,3 +25,5 @@
 
 (show-paren-mode t)
 (setq transient-mark-mode t)
+
+

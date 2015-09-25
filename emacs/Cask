@@ -52,6 +52,7 @@
 (depends-on "smartparens")
 (depends-on "slamhound")
 (depends-on "paredit")
+(depends-on "hl-line+")
 
 (depends-on "markdown-mode")
 

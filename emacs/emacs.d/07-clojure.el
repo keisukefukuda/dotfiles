@@ -34,3 +34,8 @@
          (lein-params (concat "with-profile user," profile-str " repl :headless")))
     (setq cider-lein-parameters lein-params)
     (cider-jack-in)))
+
+(define-key paredit-mode-map (kbd "M-0") 'paredit-forward-slurp-sexp)
+(define-key paredit-mode-map (kbd "M-9") 'paredit-forward-barf-sexp)
+(define-key paredit-mode-map (kbd "M-)") 'paredit-backward-slurp-sexp)
+(define-key paredit-mode-map (kbd "M-(") 'paredit-backward-barf-sexp)
