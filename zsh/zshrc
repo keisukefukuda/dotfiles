@@ -158,20 +158,22 @@ function dirlevel()
 
 function findup()
 {
-    local next_dir arg
-    arg="$1"
-    if test -z "$arg"; then exit 1; fi
+    local cur_dir trg_dir
+    trg_dir="$1"
+    if test -z "$trg_dir"; then exit 1; fi # if target dir is empty
+
+    cur_dir=$PWD
 
     cnt=0
-    while ! test -e "$arg"; do
-        next_dir=`readlink -f $PWD/..`
+    while ! test -e "$cur_dir/$trg_dir"; do
+        cur_dir=`readlink -f $cur_dir/..`
 
-        if [[ ! -d "$next_dir" ]]; then
+        if [[ ! -d "$cur_dir" ]]; then
             echo ""
             return
         fi
-        
-        if test "$PWD" = "/"; then
+
+        if test "$cur_dir" = "/"; then
             exit 1
         fi
         cnt=`expr ${cnt} + 1`
@@ -182,7 +184,7 @@ function findup()
         fi
     done
     
-    echo $PWD/$arg 
+    echo $cur_dir/$trg_dir
 }
 
 function precmd()
@@ -285,6 +287,3 @@ today () {
 if [[ -d "/usr/local/heroku/bin" ]] ; then
     export PATH="/usr/local/heroku/bin:$PATH"
 fi
-
-
-
