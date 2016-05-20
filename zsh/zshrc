@@ -79,6 +79,7 @@ alias gd='git diff'
 alias gdc='git diff --cached'
 
 export LANG=en_US.UTF-8
+export LESSCHARSET=utf-8
 export LC_CTYPE="en_US.UTF-8"
 if [ -f $HOME/local/emacs ]; then
 	alias emacs="$HOME/local/bin/emacs"
@@ -167,6 +168,7 @@ function findup()
     cnt=0
     while ! test -e "$cur_dir/$trg_dir"; do
         cur_dir=`readlink -f $cur_dir/..`
+        #echo $cur_dir >&2
 
         if [[ ! -d "$cur_dir" ]]; then
             echo ""
