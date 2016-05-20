@@ -66,8 +66,6 @@
 (add-to-list 'backup-directory-alist
 						 (cons tramp-file-name-regexp nil))
 
-
-
 ;;; Markdown-mode
 (add-to-list 'auto-mode-alist '("[.]md$" . markdown-mode))
 

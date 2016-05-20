@@ -49,7 +49,7 @@ autoload -Uz zmv
 alias zmv='noglob zmv -W'
 
 # aliases
-alias ls='ls -FG --color'
+alias ls='ls -FG --color=auto'
 alias ll='ls -laF'
 alias la='ls -aG'
 alias lv='lv -Ou8'
@@ -67,7 +67,7 @@ alias ga='git add'
 alias gp='git push'
 alias gl='git log'
 alias gs='git status'
-alias gd='git diff'
+alias gd='git diff --color | less -R'
 alias gdc='git diff --cached'
 
 export LANG=en_US.UTF-8
@@ -120,7 +120,7 @@ export MAILCHECK=0
 
 export HREF_DATADIR=$HOME/local/share/doc/href
 
-if which xset &>/dev/null; then xset b off >/dev/null 2>&1; fi
+#if which xset &>/dev/null; then xset b off >/dev/null 2>&1; fi
 
 export GTK_IM_MODULE=ibus
 export XMODIFIERS=@im=ibus
