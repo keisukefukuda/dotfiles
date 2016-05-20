@@ -1,8 +1,14 @@
 ;;;;;;;;;;;;;;;;;;;; Key bindings
 
+(defun previous-window ()
+  "Go to the previous window"
+  (interactive)
+  (other-window -1))
+
 (global-set-key "\C-h" 'delete-backward-char)
 (global-set-key "\M-?" 'help-command)
 (global-set-key "\C-x\C-i" 'indent-region)
+(global-set-key "\C-xp" 'previous-window)
 
 
 (column-number-mode t)
@@ -20,10 +26,4 @@
 (show-paren-mode t)
 (setq transient-mark-mode t)
 
-(add-hook 'c++-mode-hook
-          '(lambda()
-             (c-set-style "stroustrup")
-             (setq indent-tabs-mode nil)
-             (c-set-offset 'innamespace 0)   ; namespace {}の中はインデントしない
-             (c-set-offset 'arglist-close 0) ; 引数リストの閉じ括弧はインデントしない
-             ))
+

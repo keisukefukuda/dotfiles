@@ -6,9 +6,11 @@ SAVEHIST=100000
 #hostname | egrep '^t2a' > /dev/null && fpath=($HOME/local/share/zsh/5.0.0/functions)
 
 # Look for zsh fpath directories
-for d in $(find $HOME/local/share/zsh -type d -name "functions"); do
-  fpath=($d ${fpath})
-done
+if [ -d $HOME/local/share/zsh ]; then
+  for d in $(find $HOME/local/share/zsh -type d -name "functions"); do
+    fpath=($d ${fpath})
+  done
+fi
 
 setopt append_history
 setopt autocd
@@ -49,7 +51,13 @@ autoload -Uz zmv
 alias zmv='noglob zmv -W'
 
 # aliases
-alias ls='ls -FG --color=auto'
+# check if ls accept --color option
+ls --color >/dev/null 2>&1
+if [ "$?" -eq 0 ]; then
+	alias ls='ls -FG --color'
+else
+	alias ls='ls -FG'
+fi
 alias ll='ls -laF'
 alias la='ls -aG'
 alias lv='lv -Ou8'
@@ -71,17 +79,26 @@ alias gd='git diff --color | less -R'
 alias gdc='git diff --cached'
 
 export LANG=en_US.UTF-8
+export LESSCHARSET=utf-8
 export LC_CTYPE="en_US.UTF-8"
 if [ -f $HOME/local/emacs ]; then
 	alias emacs="$HOME/local/bin/emacs"
 	alias em="$HOME/local/bin/emacs"
 fi
 
-export PATH=$HOME/bin:$HOME/repository/bin:$HOME/local/bin:$HOME/local/cuda/bin:$PATH
+export PATH=$HOME/bin:$HOME/local/bin:/usr/local/bin:$HOME/local/cuda/bin:$PATH
 if [ -d "$HOME/local" ]; then
 	export LD_RUN_PATH=$LD_RUN_PATH:$HOME/local/lib
 	export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:$HOME/local/lib
 	export MANPATH=$MANPATH:$HOME/local/share/man
+fi
+
+if [ -d /opt/local/bin ]; then
+	export PATH=/opt/local/bin:$PATH
+fi
+
+if [ -d $HOME/.cask/bin ]; then
+	export PATH="$HOME/.cask/bin:$PATH"
 fi
 
 # Python settings
@@ -99,17 +116,13 @@ fi
 
 # TeX Live
 TEXLIVE_ROOT=/usr/local/texlive
-for d in ${TEXLIVE_ROOT}/2012 ${TEXLIVE_ROOT}/2013; do
-	if [ -d ${d} ]; then
-		TEXLIVE_DIR=${d}
-	fi
-done
+if [ -d $TEXLIVE_ROOT ]; then
+	pdflatex=`find ${TEXLIVE_ROOT}/20*/bin -name "pdflatex" | sort -r | head -n 1`
 
-pdflatex=`find ${TEXLIVE_DIR}/bin/ -name pdflatex | head -n 1`
-
-if [ -x "${pdflatex}" ]; then
+	if [ -x "${pdflatex}" ]; then
 		# make sure that the latest TeXLive installation is used
 	  export PATH=`dirname "${pdflatex}"`:$PATH
+	fi
 fi
 
 export SVN_EDITOR=emacs
@@ -133,26 +146,47 @@ export RPROMPT='[%~]'
 # This zsh function is called whenever changing directories and
 # shows the current git branch in the prompt
 
+function dirlevel()
+{
+    if [ "$PWD" = "/" ]; then
+        echo 0
+        exit
+    fi
+
+    grep -o "/" <<<"$PWD" | wc -l
+}
+
+
 function findup()
 {
-    arg="$1"
-    if test -z "$arg"; then exit 1; fi
+    local cur_dir trg_dir
+    trg_dir="$1"
+    if test -z "$trg_dir"; then exit 1; fi # if target dir is empty
+
+    cur_dir=$PWD
 
     cnt=0
-    while ! test -e "$arg"; do
-        cd ..
-        if test "$PWD" = "/"; then
+    while ! test -e "$cur_dir/$trg_dir"; do
+        cur_dir=`readlink -f $cur_dir/..`
+        #echo $cur_dir >&2
+
+        if [[ ! -d "$cur_dir" ]]; then
+            echo ""
+            return
+        fi
+
+        if test "$cur_dir" = "/"; then
             exit 1
         fi
         cnt=`expr ${cnt} + 1`
 
-        if [ ${cnt} -gt 30 ]; then
+        if [ ${cnt} -gt 10 ]; then
             echo ""
             return
         fi
     done
     
-    echo $PWD/$arg 
+    echo $cur_dir/$trg_dir
 }
 
 function precmd()
@@ -224,6 +258,19 @@ function today() {
 
 
 #-----------------------------------------------------------
+export GPG_AGENT_INFO_FILE=$HOME/.gpg-agent-info  
+gpg-agent --daemon --enable-ssh-support --write-env-file "${GPG_AGENT_INFO_FILE}"
+    
+if [ -f "${GPG_AGENT_INFO_FILE}" ]; then  
+    . "${GPG_AGENT_INFO_FILE}"
+    export GPG_AGENT_INFO
+    export SSH_AUTH_SOCK
+    export SSH_AGENT_PID
+fi
+    
+export GPG_TTY=$(tty)  
+
+#-----------------------------------------------------------
 # Read environment-dependent zshrc files
 
 if [ -f $HOME/.zsh.local ]; then
@@ -234,4 +281,11 @@ if [ -f $HOME/.zshrc.local ]; then
   source $HOME/.zshrc.local
 fi
 
-PATH=$PATH:$HOME/.rvm/bin # Add RVM to PATH for scripting
+today () {
+	date +%Y%m%d
+}
+
+### Added by the Heroku Toolbelt
+if [[ -d "/usr/local/heroku/bin" ]] ; then
+    export PATH="/usr/local/heroku/bin:$PATH"
+fi

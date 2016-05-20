@@ -1,19 +1,18 @@
-#!/bin/sh
-
-DIR=`dirname $0`
-DIR=`cd ${DIR}; pwd`
-
-# backup current .emacs file
-if [ -f "${HOME}/.emacs" ]; then
-    echo -n "Backup and replace ~/.emacs ? [y/N]: "
-    read ANS
-    if [ "${ANS}" = 'y' -o "${ANS}" = 'Y' ]; then
-        mv ${HOME}/.emacs ${HOME}/.emacs.bak
-    fi
+# Install emacs-related dot files into a new environment
+if [ -d "~/.cask" ]; then
+	echo "~/.cask already exists. Remove it."
+	exit -1
 fi
 
-cat <<EOF >${HOME}/.emacs
-(load "${DIR}/emacs.el")
-EOF
+if [ -f "~/.emacs" ]; then
+	echo "~/.emacs already exists. Remove it."
+fi
 
-emacs -nw --script "${DIR}/install.el"
+curl -fsSkL https://raw.github.com/cask/cask/master/go | python
+rm ~/.cask/Cask
+ln -s ~/dotfiles/emacs/Cask ~/.cask/Cask
+ln -s ~/dotfiles/emacs/dot_emacs ~/.emacs
+
+cd ~/.cask
+cask --verbose install
+
