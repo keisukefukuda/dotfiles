@@ -71,12 +71,12 @@ alias em='emacs -nw'
 alias gt='gnome-terminal&'
 alias Less="less"
 
-alias ga='git add'
-alias gp='git push'
-alias gl='git log'
-alias gs='git status'
-alias gd='git diff --color | less -R'
-alias gdc='git diff --cached'
+#alias ga='git add'
+#alias gp='git push'
+#alias gl='git log'
+alias gsu='git status'
+#alias gd='git diff --color | less -R'
+#alias gdc='git diff --cached'
 
 export LANG=en_US.UTF-8
 export LESSCHARSET=utf-8
