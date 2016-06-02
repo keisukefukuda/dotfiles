@@ -1,9 +1,4 @@
 #!/bin/sh
 
-which zsh >/dev/null 2>&1
-
-if [[ "$?" -eq "0" && ( "$-" == *i* ) ]]
-then
-  exec zsh -l
-fi
+source ~/.bash_profile
 

@@ -1,4 +1,3 @@
-
 (require 'paredit)
 (require 'auto-complete-config)
 
@@ -37,5 +36,5 @@
 
 (define-key paredit-mode-map (kbd "M-0") 'paredit-forward-slurp-sexp)
 (define-key paredit-mode-map (kbd "M-9") 'paredit-forward-barf-sexp)
-(define-key paredit-mode-map (kbd "M-)") 'paredit-backward-slurp-sexp)
-(define-key paredit-mode-map (kbd "M-(") 'paredit-backward-barf-sexp)
+(define-key paredit-mode-map (kbd "M-(") 'paredit-backward-slurp-sexp)
+(define-key paredit-mode-map (kbd "M-)") 'paredit-backward-barf-sexp)

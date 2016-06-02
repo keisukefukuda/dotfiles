@@ -30,3 +30,15 @@
 
 (c-set-offset 'inextern-lang 0)
 
+
+;; markdown-mode
+(autoload 'markdown-mode "markdown-mode"
+  "Major mode for editing Markdown files" t)
+(add-to-list 'auto-mode-alist '("\\.md\\'" . markdown-mode))
+(setq markdown-command "/opt/local/bin/multimarkdown")
+
+
+;; git-gutter+
+(require 'git-gutter+)
+(global-git-gutter+-mode t)
+  

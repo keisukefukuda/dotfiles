@@ -29,7 +29,6 @@
 (depends-on "flycheck-cask")
 (depends-on "htmlize")
 (depends-on "idle-highlight-mode")
-(depends-on "magit")
 (depends-on "multiple-cursors")
 (depends-on "nyan-mode")
 (depends-on "pallet")
@@ -40,9 +39,14 @@
 (depends-on "smex")
 (depends-on "use-package")
 (depends-on "web-mode")
-(depends-on "yasnippet")
 (depends-on "yaml-mode")
+(depends-on "yasnippet")
 
+;; Git-related
+(depends-on "magit")
+(depends-on "git-gutter+")
+
+;; Clojure-related
 (depends-on "cider"
 	    :git "https://github.com/clojure-emacs/cider.git"
 	    :ref "89e6217a1edc143af74fef58f7c3ff6260e8d43b")
@@ -55,6 +59,17 @@
 (depends-on "hl-line+")
 
 (depends-on "markdown-mode")
+
+;; C++
+;; http://qiita.com/MitsutakaTakeda/items/2f526a85ad39424a8363
+(depends-on "irony")
+(depends-on "irony-eldoc")
+(depends-on "company-irony")
+(depends-on "flycheck-irony")
+
+;; Haskell
+(depends-on "haskell-mode")
+;(depends-on "haskell-cabal")
 
 ;; Clojureに用途が限定されたパッケージではないが必要なもの
 (depends-on "rainbow-delimiters")

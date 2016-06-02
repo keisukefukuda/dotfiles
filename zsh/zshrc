@@ -5,6 +5,7 @@ SAVEHIST=100000
 
 #hostname | egrep '^t2a' > /dev/null && fpath=($HOME/local/share/zsh/5.0.0/functions)
 
+
 # Look for zsh fpath directories
 if [ -d $HOME/local/share/zsh ]; then
   for d in $(find $HOME/local/share/zsh -type d -name "functions"); do
@@ -22,15 +23,13 @@ setopt magic_equal_subst
 setopt print_eightbit
 setopt extended_glob
 setopt shwordsplit
+setopt autopushd pushdminus pushdsilent pushdtohome
 
 unsetopt beep
 bindkey -e
 
-setopt autopushd pushdminus pushdsilent pushdtohome
-
 fignore=(.o .d .aux .log .toc)
 
-# End of lines configured by zsh-newuser-install
 # The following lines were added by compinstall
 zstyle :compinstall filename '/home/kei/.zshrc'
 zstyle ':completion:*' verbose yes
@@ -72,18 +71,14 @@ alias gt='gnome-terminal&'
 alias Less="less"
 
 alias ga='git add'
+alias gs='git status'
 alias gp='git push'
 alias gl='git log'
-alias gs='git status'
 alias gd='git diff'
 alias gdc='git diff --cached'
 
 export LANG=en_US.UTF-8
 export LC_CTYPE="en_US.UTF-8"
-if [ -f $HOME/local/emacs ]; then
-	alias emacs="$HOME/local/bin/emacs"
-	alias em="$HOME/local/bin/emacs"
-fi
 
 export PATH=$HOME/bin:$HOME/local/bin:/usr/local/bin:$HOME/local/cuda/bin:$PATH
 if [ -d "$HOME/local" ]; then
@@ -119,8 +114,8 @@ if [ -d $TEXLIVE_ROOT ]; then
 	pdflatex=`find ${TEXLIVE_ROOT}/20*/bin -name "pdflatex" | sort -r | head -n 1`
 
 	if [ -x "${pdflatex}" ]; then
-		# make sure that the latest TeXLive installation is used
-	  export PATH=`dirname "${pdflatex}"`:$PATH
+		  # make sure that the latest TeXLive installation is used
+	    echo export PATH=`dirname "${pdflatex}"`:$PATH
 	fi
 fi
 
@@ -132,7 +127,7 @@ export MAILCHECK=0
 
 export HREF_DATADIR=$HOME/local/share/doc/href
 
-if which xset &>/dev/null; then xset b off >/dev/null 2>&1; fi
+#if which xset &>/dev/null; then xset b off >/dev/null 2>&1; fi
 
 export GTK_IM_MODULE=ibus
 export XMODIFIERS=@im=ibus
@@ -160,7 +155,7 @@ function findup()
 {
         arg="$1"
         if test -z "$arg"; then exit 1; fi
- 
+
         while ! test -e "$arg"; do
            # Stop if we are on upper than 2 level directories
            lv=`dirlevel`
@@ -171,8 +166,8 @@ function findup()
               exit 1
            fi
         done
- 
-        echo $PWD/$arg 
+
+        echo $PWD/$arg
 }
 
 function precmd()
@@ -244,34 +239,32 @@ function today() {
 
 
 #-----------------------------------------------------------
-export GPG_AGENT_INFO_FILE=$HOME/.gpg-agent-info  
+export GPG_AGENT_INFO_FILE=$HOME/.gpg-agent-info
 gpg-agent --daemon --enable-ssh-support --write-env-file "${GPG_AGENT_INFO_FILE}"
-    
-if [ -f "${GPG_AGENT_INFO_FILE}" ]; then  
+
+if [ -f "${GPG_AGENT_INFO_FILE}" ]; then
     . "${GPG_AGENT_INFO_FILE}"
     export GPG_AGENT_INFO
     export SSH_AUTH_SOCK
     export SSH_AGENT_PID
 fi
-    
-export GPG_TTY=$(tty)  
+
+export GPG_TTY=$(tty)
 
 #-----------------------------------------------------------
 # Read environment-dependent zshrc files
+function load_if_present() {
+    if [ -f "$1" ]; then
+        source $1
+    fi
+}
 
-if [ -f $HOME/.zsh.local ]; then
-  source $HOME/.zsh.local
-fi
-
-if [ -f $HOME/.zshrc.local ]; then
-  source $HOME/.zshrc.local
-fi
+load_if_present $HOME/.zsh.local
+load_if_present $HOME/.zshrc.local
 
 today () {
 	date +%Y%m%d
 }
-
-
 
 ### Added by the Heroku Toolbelt
 export PATH="/usr/local/heroku/bin:$PATH"
