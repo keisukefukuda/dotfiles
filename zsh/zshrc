@@ -70,14 +70,15 @@ alias em='emacs -nw'
 alias gt='gnome-terminal&'
 alias Less="less"
 
-alias ga='git add'
-alias gs='git status'
-alias gp='git push'
-alias gl='git log'
-alias gd='git diff'
-alias gdc='git diff --cached'
+#alias ga='git add'
+#alias gp='git push'
+#alias gl='git log'
+alias gsu='git status'
+#alias gd='git diff --color | less -R'
+#alias gdc='git diff --cached'
 
 export LANG=en_US.UTF-8
+export LESSCHARSET=utf-8
 export LC_CTYPE="en_US.UTF-8"
 
 export PATH=$HOME/bin:$HOME/local/bin:/usr/local/bin:$HOME/local/cuda/bin:$PATH
@@ -153,21 +154,34 @@ function dirlevel()
 
 function findup()
 {
-        arg="$1"
-        if test -z "$arg"; then exit 1; fi
+    local cur_dir trg_dir
+    trg_dir="$1"
+    if test -z "$trg_dir"; then exit 1; fi # if target dir is empty
 
-        while ! test -e "$arg"; do
-           # Stop if we are on upper than 2 level directories
-           lv=`dirlevel`
-           if [ "$lv" -le 2 ]; then exit; fi
+    cur_dir=$PWD
 
-           cd ..
-           if test "$PWD" = "/"; then
-              exit 1
-           fi
-        done
+    cnt=0
+    while ! test -e "$cur_dir/$trg_dir"; do
+        cur_dir=`readlink -f $cur_dir/..`
+        #echo $cur_dir >&2
 
-        echo $PWD/$arg
+        if [[ ! -d "$cur_dir" ]]; then
+            echo ""
+            return
+        fi
+
+        if test "$cur_dir" = "/"; then
+            exit 1
+        fi
+        cnt=`expr ${cnt} + 1`
+
+        if [ ${cnt} -gt 10 ]; then
+            echo ""
+            return
+        fi
+    done
+    
+    echo $cur_dir/$trg_dir
 }
 
 function precmd()
@@ -267,4 +281,6 @@ today () {
 }
 
 ### Added by the Heroku Toolbelt
-export PATH="/usr/local/heroku/bin:$PATH"
+if [[ -d "/usr/local/heroku/bin" ]] ; then
+    export PATH="/usr/local/heroku/bin:$PATH"
+fi
