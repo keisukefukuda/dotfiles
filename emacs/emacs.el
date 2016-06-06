@@ -119,14 +119,6 @@
 			(setq inferior-lisp-program sbcl)
 		nil)))
 
-
-;;; Haskell-mode
-(require 'haskell-mode)
-(require 'flymake-haskell-multi)
-(add-hook 'haskell-mode-hook 'flymake-haskell-multi-load)
-(custom-set-variables
- '(haskell-mode-hook '(turn-on-haskell-indentation)))
-
 ;;(setq windmove-wrap-around t)
 (windmove-default-keybindings)
 

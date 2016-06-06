@@ -47,9 +47,7 @@
 (depends-on "git-gutter+")
 
 ;; Clojure-related
-(depends-on "cider"
-	    :git "https://github.com/clojure-emacs/cider.git"
-	    :ref "89e6217a1edc143af74fef58f7c3ff6260e8d43b")
+(depends-on "cider")
 (depends-on "ac-cider")
 (depends-on "clojure-mode")
 (depends-on "clojure-cheatsheet")
