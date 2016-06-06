@@ -151,6 +151,18 @@ function dirlevel()
     grep -o "/" <<<"$PWD" | wc -l
 }
 
+function readlink_f()
+{
+	# if readlink -f is available, use it. It not (on MacOS and other BSD systmes)
+	# emulate the behavior using the vanilla readlink command.
+	if uname -a | grep -q Linux; then
+		 readlink -f $*
+	else
+	   # TODO
+		 echo $*
+	fi
+}
+
 
 function findup()
 {
@@ -162,7 +174,7 @@ function findup()
 
     cnt=0
     while ! test -e "$cur_dir/$trg_dir"; do
-        cur_dir=`readlink -f $cur_dir/..`
+        cur_dir=`readlink_f $cur_dir/..`
         #echo $cur_dir >&2
 
         if [[ ! -d "$cur_dir" ]]; then
