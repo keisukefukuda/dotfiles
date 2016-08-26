@@ -98,8 +98,13 @@
              (auto-save-mode -1)))
 
 (require 'tramp)
+(setq tramp-default-method "ssh")
+(setq tramp-verbose 10)
 (add-to-list 'backup-directory-alist
 						 (cons tramp-file-name-regexp nil))
+
+;;; workaround for the error "controlPath too long" when using tramp
+;; (setenv "TMPDIR" "/tmp")
 
 ;;; Markdown-mode
 (add-to-list 'auto-mode-alist '("[.]md$" . markdown-mode))
@@ -121,7 +126,4 @@
 
 ;;(setq windmove-wrap-around t)
 (windmove-default-keybindings)
-
-;;; workaround for the error "controlPath too long" when using tramp
-(setenv "TMPDIR" "/tmp")
 
