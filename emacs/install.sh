@@ -6,6 +6,7 @@ fi
 
 if [ -f "~/.emacs" ]; then
 	echo "~/.emacs already exists. Remove it."
+	exit -1
 fi
 
 curl -fsSkL https://raw.github.com/cask/cask/master/go | python
@@ -15,4 +16,5 @@ ln -s ~/dotfiles/emacs/dot_emacs ~/.emacs
 
 cd ~/.cask
 ./bin/cask --verbose install
+
 

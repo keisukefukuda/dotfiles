@@ -7,7 +7,6 @@
 
 (depends-on "f")
 (depends-on "s")
-(depends-on "dash")
 (depends-on "ansi")
 (depends-on "ecukes")
 (depends-on "servant")
@@ -20,6 +19,7 @@
 (depends-on "bison-mode")
 (depends-on "cask")
 (depends-on "cmake-mode")
+(depends-on "company")
 (depends-on "dash")
 (depends-on "drag-stuff")
 (depends-on "exec-path-from-shell")
@@ -50,11 +50,13 @@
 (depends-on "cider")
 (depends-on "ac-cider")
 (depends-on "clojure-mode")
-(depends-on "clojure-cheatsheet")
 (depends-on "smartparens")
 (depends-on "slamhound")
 (depends-on "paredit")
 (depends-on "hl-line+")
+;; Clojureに用途が限定されたパッケージではないが必要なもの
+(depends-on "rainbow-delimiters")
+
 
 (depends-on "markdown-mode")
 
@@ -69,5 +71,4 @@
 (depends-on "haskell-mode")
 ;(depends-on "haskell-cabal")
 
-;; Clojureに用途が限定されたパッケージではないが必要なもの
-(depends-on "rainbow-delimiters")
+
