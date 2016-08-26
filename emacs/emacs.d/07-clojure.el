@@ -8,6 +8,7 @@
 (add-hook 'clojure-mode-hook 'cider-mode)
 (add-hook 'clojure-mode-hook 'ac-flyspell-workaround)
 (add-hook 'clojure-mode-hook 'ac-cider-setup)
+(add-hook 'clojure-mode-hook 'paredit-mode)
 (add-hook 'cider-repl-mode-hook 'ac-cider-setup)
 (add-hook 'cider-mode-hook 'eldoc-mode)
 
@@ -34,7 +35,8 @@
     (setq cider-lein-parameters lein-params)
     (cider-jack-in)))
 
-(define-key paredit-mode-map (kbd "M-0") 'paredit-forward-slurp-sexp)
-(define-key paredit-mode-map (kbd "M-9") 'paredit-forward-barf-sexp)
-(define-key paredit-mode-map (kbd "M-(") 'paredit-backward-slurp-sexp)
-(define-key paredit-mode-map (kbd "M-)") 'paredit-backward-barf-sexp)
+(define-key paredit-mode-map (kbd "C-c ]") 'paredit-forward-slurp-sexp)
+(define-key paredit-mode-map (kbd "C-c [") 'paredit-forward-barf-sexp)
+(define-key paredit-mode-map (kbd "C-c 0") 'paredit-backward-slurp-sexp)
+(define-key paredit-mode-map (kbd "C-c 9") 'paredit-backward-barf-sexp)
+(define-key paredit-mode-map (kbd "C-c <up>") 'paredit-splice-sexp)
