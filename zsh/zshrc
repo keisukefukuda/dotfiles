@@ -112,11 +112,11 @@ fi
 # TeX Live
 TEXLIVE_ROOT=/usr/local/texlive
 if [ -d $TEXLIVE_ROOT ]; then
-	pdflatex=`find ${TEXLIVE_ROOT}/20*/bin -name "pdflatex" | sort -r | head -n 1`
+	  pdflatex=`find ${TEXLIVE_ROOT}/20*/bin -name "pdflatex" | sort -r | head -n 1`
 
 	if [ -x "${pdflatex}" ]; then
 		  # make sure that the latest TeXLive installation is used
-	    echo export PATH=`dirname "${pdflatex}"`:$PATH
+	    export PATH=`dirname "${pdflatex}"`:$PATH
 	fi
 fi
 
