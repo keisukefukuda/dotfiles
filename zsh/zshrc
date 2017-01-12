@@ -263,6 +263,10 @@ function today() {
      date +%Y%m%d
 }
 
+function now() { 
+     date +%Y%m%d%H%M
+}
+
 
 #-----------------------------------------------------------
 export GPG_AGENT_INFO_FILE=$HOME/.gpg-agent-info
