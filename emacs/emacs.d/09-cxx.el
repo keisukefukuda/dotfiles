@@ -4,7 +4,7 @@
 (setq auto-mode-alist
       (append '(("\\.cu" . c++-mode)) auto-mode-alist))
 
-;; coding style
+;; Coding style
 (load "google-c-style.el")
 (add-hook 'c-mode-common-hook
           '(lambda()
@@ -17,4 +17,9 @@
 
 ;; http://qiita.com/alpha22jp/items/90f7f2ad4f8b1fa089f4
 ;; http://qiita.com/MitsutakaTakeda/items/2f526a85ad39424a8363
+
+(use-package rtags
+  :config
+  (progn
+    (rtags-enable-standard-keybindings c-mode-base-map)))
 

@@ -118,11 +118,11 @@
           (setq str (replace-match "" t t str)))
         str))))
 
-(when (fboundp 'slime)
-	(let ((sbcl (find-command "sbcl")))
-	(if (not (string= "" sbcl))
-			(setq inferior-lisp-program sbcl)
-		nil)))
+;; (when (fboundp 'slime)
+;; 	(let ((sbcl (find-command "sbcl")))
+;; 	(if (not (string= "" sbcl))
+;; 			(setq inferior-lisp-program sbcl)
+;; 		nil)))
 
 ;;(setq windmove-wrap-around t)
 (windmove-default-keybindings)
