@@ -112,11 +112,11 @@ fi
 # TeX Live
 TEXLIVE_ROOT=/usr/local/texlive
 if [ -d $TEXLIVE_ROOT ]; then
-	pdflatex=`find ${TEXLIVE_ROOT}/20*/bin -name "pdflatex" | sort -r | head -n 1`
+	  pdflatex=`find ${TEXLIVE_ROOT}/20*/bin -name "pdflatex" | sort -r | head -n 1`
 
 	if [ -x "${pdflatex}" ]; then
 		  # make sure that the latest TeXLive installation is used
-	    echo export PATH=`dirname "${pdflatex}"`:$PATH
+	    export PATH=`dirname "${pdflatex}"`:$PATH
 	fi
 fi
 
@@ -263,10 +263,16 @@ function today() {
      date +%Y%m%d
 }
 
+function now() { 
+     date +%Y%m%d%H%M
+}
+
 
 #-----------------------------------------------------------
 export GPG_AGENT_INFO_FILE=$HOME/.gpg-agent-info
-gpg-agent --daemon --enable-ssh-support --write-env-file "${GPG_AGENT_INFO_FILE}"
+if which gpg-agent; then
+	gpg-agent --daemon --enable-ssh-support --write-env-file "${GPG_AGENT_INFO_FILE}"
+fi
 
 if [ -f "${GPG_AGENT_INFO_FILE}" ]; then
     . "${GPG_AGENT_INFO_FILE}"

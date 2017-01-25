@@ -27,6 +27,7 @@
 (depends-on "f")
 (depends-on "flycheck")
 (depends-on "flycheck-cask")
+(depends-on "helm")
 (depends-on "htmlize")
 (depends-on "idle-highlight-mode")
 (depends-on "multiple-cursors")
@@ -66,6 +67,7 @@
 (depends-on "irony-eldoc")
 (depends-on "company-irony")
 (depends-on "flycheck-irony")
+(depends-on "rtags")
 
 ;; Haskell
 (depends-on "haskell-mode")
