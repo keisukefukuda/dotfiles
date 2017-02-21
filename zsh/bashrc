@@ -4,6 +4,9 @@ if [[ -f ~/.bashrc.local ]]; then
     source ~/.bashrc.local
 fi
 
+export PATH=$HOME/lcoal/bin:$PATH
+source ~/.bash_profile
+
 #if [[ "$?" -eq "0" && ( "$-" == *i* ) ]]
 #then
     #sleep 0

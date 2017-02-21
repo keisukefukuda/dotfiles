@@ -5,6 +5,7 @@ SAVEHIST=100000
 
 #hostname | egrep '^t2a' > /dev/null && fpath=($HOME/local/share/zsh/5.0.0/functions)
 
+
 # Look for zsh fpath directories
 if [ -d $HOME/local/share/zsh ]; then
   for d in $(find $HOME/local/share/zsh -type d -name "functions"); do
@@ -25,15 +26,13 @@ setopt magic_equal_subst
 setopt print_eightbit
 setopt extended_glob
 setopt shwordsplit
+setopt autopushd pushdminus pushdsilent pushdtohome
 
 unsetopt beep
 bindkey -e
 
-setopt autopushd pushdminus pushdsilent pushdtohome
-
 fignore=(.o .d .aux .log .toc)
 
-# End of lines configured by zsh-newuser-install
 # The following lines were added by compinstall
 zstyle :compinstall filename '/home/kei/.zshrc'
 zstyle ':completion:*' verbose yes
@@ -84,10 +83,6 @@ alias gsu='git status'
 export LANG=en_US.UTF-8
 export LESSCHARSET=utf-8
 export LC_CTYPE="en_US.UTF-8"
-if [ -f $HOME/local/emacs ]; then
-	alias emacs="$HOME/local/bin/emacs"
-	alias em="$HOME/local/bin/emacs"
-fi
 
 export PATH=$HOME/bin:$HOME/local/bin:/usr/local/bin:$HOME/local/cuda/bin:$PATH
 if [ -d "$HOME/local" ]; then
@@ -120,11 +115,11 @@ fi
 # TeX Live
 TEXLIVE_ROOT=/usr/local/texlive
 if [ -d $TEXLIVE_ROOT ]; then
-	pdflatex=`find ${TEXLIVE_ROOT}/20*/bin -name "pdflatex" | sort -r | head -n 1`
+	  pdflatex=`find ${TEXLIVE_ROOT}/20*/bin -name "pdflatex" | sort -r | head -n 1`
 
 	if [ -x "${pdflatex}" ]; then
-		# make sure that the latest TeXLive installation is used
-	  export PATH=`dirname "${pdflatex}"`:$PATH
+		  # make sure that the latest TeXLive installation is used
+	    export PATH=`dirname "${pdflatex}"`:$PATH
 	fi
 fi
 
@@ -159,6 +154,18 @@ function dirlevel()
     grep -o "/" <<<"$PWD" | wc -l
 }
 
+function readlink_f()
+{
+	# if readlink -f is available, use it. It not (on MacOS and other BSD systmes)
+	# emulate the behavior using the vanilla readlink command.
+	if uname -a | grep -q Linux; then
+		 readlink -f $*
+	else
+	   # TODO
+		 echo $*
+	fi
+}
+
 
 function findup()
 {
@@ -170,7 +177,7 @@ function findup()
 
     cnt=0
     while ! test -e "$cur_dir/$trg_dir"; do
-        cur_dir=`readlink -f $cur_dir/..`
+        cur_dir=`readlink_f $cur_dir/..`
         #echo $cur_dir >&2
 
         if [[ ! -d "$cur_dir" ]]; then
@@ -259,30 +266,36 @@ function today() {
      date +%Y%m%d
 }
 
+function now() { 
+     date +%Y%m%d%H%M
+}
+
 
 #-----------------------------------------------------------
-export GPG_AGENT_INFO_FILE=$HOME/.gpg-agent-info  
-gpg-agent --daemon --enable-ssh-support --write-env-file "${GPG_AGENT_INFO_FILE}"
-    
-if [ -f "${GPG_AGENT_INFO_FILE}" ]; then  
+export GPG_AGENT_INFO_FILE=$HOME/.gpg-agent-info
+if which gpg-agent; then
+	gpg-agent --daemon --enable-ssh-support --write-env-file "${GPG_AGENT_INFO_FILE}"
+fi
+
+if [ -f "${GPG_AGENT_INFO_FILE}" ]; then
     . "${GPG_AGENT_INFO_FILE}"
     export GPG_AGENT_INFO
     export SSH_AUTH_SOCK
     export SSH_AGENT_PID
 fi
-    
-export GPG_TTY=$(tty)  
+
+export GPG_TTY=$(tty)
 
 #-----------------------------------------------------------
 # Read environment-dependent zshrc files
+function load_if_present() {
+    if [ -f "$1" ]; then
+        source $1
+    fi
+}
 
-if [ -f $HOME/.zsh.local ]; then
-  source $HOME/.zsh.local
-fi
-
-if [ -f $HOME/.zshrc.local ]; then
-  source $HOME/.zshrc.local
-fi
+load_if_present $HOME/.zsh.local
+load_if_present $HOME/.zshrc.local
 
 today () {
 	date +%Y%m%d

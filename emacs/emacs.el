@@ -98,8 +98,13 @@
              (auto-save-mode -1)))
 
 (require 'tramp)
+(setq tramp-default-method "ssh")
+(setq tramp-verbose 10)
 (add-to-list 'backup-directory-alist
 						 (cons tramp-file-name-regexp nil))
+
+;;; workaround for the error "controlPath too long" when using tramp
+;; (setenv "TMPDIR" "/tmp")
 
 ;;; Markdown-mode
 (add-to-list 'auto-mode-alist '("[.]md$" . markdown-mode))
@@ -113,23 +118,12 @@
           (setq str (replace-match "" t t str)))
         str))))
 
-(when (fboundp 'slime)
-	(let ((sbcl (find-command "sbcl")))
-	(if (not (string= "" sbcl))
-			(setq inferior-lisp-program sbcl)
-		nil)))
-
-
-;;; Haskell-mode
-(require 'haskell-mode)
-(require 'flymake-haskell-multi)
-(add-hook 'haskell-mode-hook 'flymake-haskell-multi-load)
-(custom-set-variables
- '(haskell-mode-hook '(turn-on-haskell-indentation)))
+;; (when (fboundp 'slime)
+;; 	(let ((sbcl (find-command "sbcl")))
+;; 	(if (not (string= "" sbcl))
+;; 			(setq inferior-lisp-program sbcl)
+;; 		nil)))
 
 ;;(setq windmove-wrap-around t)
 (windmove-default-keybindings)
-
-;;; workaround for the error "controlPath too long" when using tramp
-(setenv "TMPDIR" "/tmp")
 

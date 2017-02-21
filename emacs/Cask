@@ -7,7 +7,6 @@
 
 (depends-on "f")
 (depends-on "s")
-(depends-on "dash")
 (depends-on "ansi")
 (depends-on "ecukes")
 (depends-on "servant")
@@ -20,6 +19,7 @@
 (depends-on "bison-mode")
 (depends-on "cask")
 (depends-on "cmake-mode")
+(depends-on "company")
 (depends-on "dash")
 (depends-on "drag-stuff")
 (depends-on "exec-path-from-shell")
@@ -27,9 +27,9 @@
 (depends-on "f")
 (depends-on "flycheck")
 (depends-on "flycheck-cask")
+(depends-on "helm")
 (depends-on "htmlize")
 (depends-on "idle-highlight-mode")
-(depends-on "magit")
 (depends-on "multiple-cursors")
 (depends-on "nyan-mode")
 (depends-on "pallet")
@@ -40,21 +40,37 @@
 (depends-on "smex")
 (depends-on "use-package")
 (depends-on "web-mode")
-(depends-on "yasnippet")
 (depends-on "yaml-mode")
+(depends-on "yasnippet")
 
-(depends-on "cider"
-	    :git "https://github.com/clojure-emacs/cider.git"
-	    :ref "89e6217a1edc143af74fef58f7c3ff6260e8d43b")
+;; Git-related
+(depends-on "magit")
+(depends-on "git-gutter+")
+
+;; Clojure-related
+(depends-on "cider")
 (depends-on "ac-cider")
 (depends-on "clojure-mode")
-(depends-on "clojure-cheatsheet")
 (depends-on "smartparens")
 (depends-on "slamhound")
 (depends-on "paredit")
 (depends-on "hl-line+")
+;; Clojureに用途が限定されたパッケージではないが必要なもの
+(depends-on "rainbow-delimiters")
+
 
 (depends-on "markdown-mode")
 
-;; Clojureに用途が限定されたパッケージではないが必要なもの
-(depends-on "rainbow-delimiters")
+;; C++
+;; http://qiita.com/MitsutakaTakeda/items/2f526a85ad39424a8363
+(depends-on "irony")
+(depends-on "irony-eldoc")
+(depends-on "company-irony")
+(depends-on "flycheck-irony")
+(depends-on "rtags")
+
+;; Haskell
+(depends-on "haskell-mode")
+;(depends-on "haskell-cabal")
+
+
