@@ -1,9 +1,13 @@
 #!/bin/sh
 
-which zsh >/dev/null 2>&1
-
-if [[ "$?" -eq "0" && ( "$-" == *i* ) ]]
-then
-  exec zsh -l
+if [[ -f ~/.bashrc.local ]]; then
+    source ~/.bashrc.local
 fi
+
+#if [[ "$?" -eq "0" && ( "$-" == *i* ) ]]
+#then
+    #sleep 0
+    #which zsh >/dev/null 2>&1
+    #exec zsh -l
+#fi
 

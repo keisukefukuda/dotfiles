@@ -12,6 +12,9 @@ if [ -d $HOME/local/share/zsh ]; then
   done
 fi
 
+# for Emacs tramp
+[[ $TERM == "dumb" ]] && unsetopt zle && PS1='$ ' && return
+
 setopt append_history
 setopt autocd
 setopt share_history
