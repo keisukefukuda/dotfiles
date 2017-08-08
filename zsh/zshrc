@@ -95,6 +95,10 @@ if [ -d /opt/local/bin ]; then
 	export PATH=/opt/local/bin:$PATH
 fi
 
+if [ -d /usr/local/bin ]; then
+	export PATH=/usr/local:$PATH
+fi
+
 if [ -d $HOME/.cask/bin ]; then
 	export PATH="$HOME/.cask/bin:$PATH"
 fi
@@ -305,3 +309,6 @@ today () {
 if [[ -d "/usr/local/heroku/bin" ]] ; then
     export PATH="/usr/local/heroku/bin:$PATH"
 fi
+
+# added by travis gem
+[ -f /Users/keisukefukuda/.travis/travis.sh ] && source /Users/keisukefukuda/.travis/travis.sh
