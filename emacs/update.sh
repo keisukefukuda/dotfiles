@@ -7,4 +7,4 @@ if [ ! -d ~/.cask ]; then
 fi
 
 cd ~/.cask
-cask update
+cask update --verbose
