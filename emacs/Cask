@@ -63,6 +63,13 @@
 ;; Clojureに用途が限定されたパッケージではないが必要なもの
 (depends-on "rainbow-delimiters")
 
+;; Julia-related
+(depends-on "flycheck-julia")
+(depends-on "julia")
+(depends-on "julia-repl")
+(depends-on "julia-shell")
+
+
 
 (depends-on "markdown-mode")
 
