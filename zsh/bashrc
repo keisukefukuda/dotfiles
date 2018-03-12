@@ -1,7 +1,13 @@
 #!/bin/sh
 
+export XX_MODE=bashrc
+
 if [[ -f ~/.bashrc.local ]]; then
     source ~/.bashrc.local
+fi
+
+if [[ -f ~/.env.sh ]]; then
+    source ~/.env.sh
 fi
 
 export PATH=$HOME/lcoal/bin:$PATH
@@ -12,4 +18,7 @@ export PATH=$HOME/lcoal/bin:$PATH
     #which zsh >/dev/null 2>&1
     #exec zsh -l
 #fi
+
+. ~/mpienv/init
+# mpienv use --mpi4py openmpi-2.1.2
 
