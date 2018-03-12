@@ -1,17 +1,20 @@
 #!/bin/sh
 
+export XX_MODE=bashrc
+
 if [[ -f ~/.bashrc.local ]]; then
     source ~/.bashrc.local
 fi
 
+if [[ -f ~/.env.sh ]]; then
+    source ~/.env.sh
+fi
 
 export PATH=$HOME/lcoal/bin:$PATH
 
 # added by travis gem
 [ -f /Users/keisukefukuda/.travis/travis.sh ] && source /Users/keisukefukuda/.travis/travis.sh
 
-if [[ "$?" -eq "0" && ( "$-" == *i* ) ]]; then
-  if [ -x /usr/local/bin/zsh ]; then
-    exec zsh -l
-  fi
-fi
+. ~/mpienv/init
+# mpienv use --mpi4py openmpi-2.1.2
+
