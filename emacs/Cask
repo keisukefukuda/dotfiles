@@ -19,6 +19,7 @@
 (depends-on "bison-mode")
 (depends-on "cask")
 (depends-on "cmake-mode")
+(depends-on "clang-format")
 (depends-on "company")
 (depends-on "dash")
 (depends-on "drag-stuff")
