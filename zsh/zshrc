@@ -176,7 +176,7 @@ function findup()
     cur_dir=$PWD
 
     cnt=0
-    while ! test -e "$cur_dir/$trg_dir"; do
+    while ! test -d "$cur_dir/$trg_dir"; do
         cur_dir=`readlink_f $cur_dir/..`
         #echo $cur_dir >&2
 
@@ -270,6 +270,10 @@ function now() {
      date +%Y%m%d%H%M
 }
 
+function gpp() {
+    git pull -p
+}
+
 
 #-----------------------------------------------------------
 export GPG_AGENT_INFO_FILE=$HOME/.gpg-agent-info
@@ -305,3 +309,6 @@ today () {
 if [[ -d "/usr/local/heroku/bin" ]] ; then
     export PATH="/usr/local/heroku/bin:$PATH"
 fi
+
+. ~/mpienv/init
+
