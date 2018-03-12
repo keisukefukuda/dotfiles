@@ -47,16 +47,28 @@
 (depends-on "magit")
 (depends-on "git-gutter+")
 
+;; rust-related
+(depends-on "rust-mode")
+(depends-on "flymake-rust")
+(depends-on "flycheck-rust")
+
 ;; Clojure-related
 (depends-on "cider")
 (depends-on "ac-cider")
 (depends-on "clojure-mode")
 (depends-on "smartparens")
-(depends-on "slamhound")
+; (depends-on "slamhound")
 (depends-on "paredit")
 (depends-on "hl-line+")
 ;; Clojureに用途が限定されたパッケージではないが必要なもの
 (depends-on "rainbow-delimiters")
+
+;; Julia-related
+(depends-on "flycheck-julia")
+(depends-on "julia")
+(depends-on "julia-repl")
+(depends-on "julia-shell")
+
 
 
 (depends-on "markdown-mode")

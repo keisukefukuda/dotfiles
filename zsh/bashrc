@@ -12,12 +12,8 @@ fi
 
 export PATH=$HOME/lcoal/bin:$PATH
 
-#if [[ "$?" -eq "0" && ( "$-" == *i* ) ]]
-#then
-    #sleep 0
-    #which zsh >/dev/null 2>&1
-    #exec zsh -l
-#fi
+# added by travis gem
+[ -f /Users/keisukefukuda/.travis/travis.sh ] && source /Users/keisukefukuda/.travis/travis.sh
 
 . ~/mpienv/init
 # mpienv use --mpi4py openmpi-2.1.2
