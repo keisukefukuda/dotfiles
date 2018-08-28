@@ -18,6 +18,10 @@
             (google-set-c-style)
             (setq c-basic-offset 4)))
 
+(add-hook 'c-mode-common-hook
+          (lambda()
+            (add-hook 'before-save-hook 'delete-trailing-whitespace nil 'local)))
+
 ;; http://qiita.com/alpha22jp/items/90f7f2ad4f8b1fa089f4
 ;; http://qiita.com/MitsutakaTakeda/items/2f526a85ad39424a8363
 
