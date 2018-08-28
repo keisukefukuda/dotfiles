@@ -25,8 +25,8 @@
 
 
 ;; git-gutter+
-(require 'git-gutter+)
-(global-git-gutter+-mode t)
+;(require 'git-gutter+)
+;(global-git-gutter+-mode t)
   
 
 ;; yasnippet-mode

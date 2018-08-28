@@ -36,19 +36,19 @@
 ;;;;;;;;;;;;;;;;;;;; Misc settings
 
 (unless window-system
-	(require 'mouse)
-	(if (fboundp 'xterm-mouse-mode) (xterm-mouse-mode t))
-	(if (fboundp 'mouse-wheel-mode) (mouse-wheel-mode t))
+  (require 'mouse)
+  (if (fboundp 'xterm-mouse-mode) (xterm-mouse-mode t))
+  (if (fboundp 'mouse-wheel-mode) (mouse-wheel-mode t))
 
-	(global-set-key [mouse-4] '(lambda()
-															 (interactive)
-															 (scroll-down 1)))
-	(global-set-key [mouse-5] '(lambda()
-															 (interactive)
-															 (scroll-up 1)))
+  (global-set-key [mouse-4] '(lambda()
+			       (interactive)
+			       (scroll-down 1)))
+  (global-set-key [mouse-5] '(lambda()
+			       (interactive)
+			       (scroll-up 1)))
 
-	(defun track-mouse (e))
-	(setq mouse-sel-mode t))
+  (defun track-mouse (e))
+  (setq mouse-sel-mode t))
 
 ;; OSX clip board integration
 (if (eq system-type 'darwin)
@@ -99,8 +99,8 @@
 (require 'tramp)
 (setq tramp-default-method "ssh")
 (setq tramp-verbose 10)
-(add-to-list 'backup-directory-alist
-						 (cons tramp-file-name-regexp nil))
+;(add-to-list 'backup-directory-alist
+;	     (cons tramp-file-name-regexp nil))
 
 ;;; workaround for the error "controlPath too long" when using tramp
 ;; (setenv "TMPDIR" "/tmp")

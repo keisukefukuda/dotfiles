@@ -47,7 +47,6 @@
 
 ;; Git-related
 (depends-on "magit")
-(depends-on "git-gutter+")
 
 ;; rust-related
 (depends-on "rust-mode")
@@ -81,7 +80,6 @@
 (depends-on "irony-eldoc")
 (depends-on "company-irony")
 (depends-on "flycheck-irony")
-(depends-on "rtags")
 
 ;; Haskell
 (depends-on "haskell-mode")
