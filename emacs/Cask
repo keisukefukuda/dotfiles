@@ -45,7 +45,6 @@
 
 ;; Git-related
 (depends-on "magit")
-(depends-on "git-gutter+")
 
 ;; rust-related
 (depends-on "rust-mode")

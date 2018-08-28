@@ -30,7 +30,7 @@
     (helm-source-buffers-list helm-source-recentf helm-source-files-in-current-dir helm-source-emacs-commands-history helm-source-emacs-commands)))
  '(package-selected-packages
    (quote
-    (julia-mode yasnippet yaml-mode web-mode use-package smex smartparens servant rust-mode rtags rainbow-delimiters projectile prodigy popwin paredit pallet nyan-mode noflet multiple-cursors markdown-mode magit irony-eldoc idle-highlight-mode htmlize hl-line+ helm haskell-mode git-gutter+ flymake-rust flycheck-rust flycheck-irony flycheck-cask expand-region exec-path-from-shell ert-runner ert-async el-mock ecukes drag-stuff company-irony cmake-mode bison-mode ac-cider))))
+    (julia-mode yasnippet yaml-mode web-mode use-package smex smartparens servant rust-mode rtags rainbow-delimiters projectile prodigy popwin paredit pallet nyan-mode noflet multiple-cursors markdown-mode magit irony-eldoc idle-highlight-mode htmlize hl-line+ helm haskell-mode flymake-rust flycheck-rust flycheck-irony flycheck-cask expand-region exec-path-from-shell ert-runner ert-async el-mock ecukes drag-stuff company-irony cmake-mode bison-mode ac-cider))))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.

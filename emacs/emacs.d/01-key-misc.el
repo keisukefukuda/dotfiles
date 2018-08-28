@@ -21,7 +21,6 @@
 (define-key minibuffer-local-completion-map "\C-w" 'backward-kill-word)
 
 (require 'indent-tabs-maybe)
-(require 'tramp)
 
 (show-paren-mode t)
 (setq transient-mark-mode t)
