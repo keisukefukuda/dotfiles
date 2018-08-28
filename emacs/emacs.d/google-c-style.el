@@ -68,7 +68,7 @@ Suitable for inclusion in `c-offsets-alist'."
 (defconst google-c-style
   `((c-recognize-knr-p . nil)
     (c-enable-xemacs-performance-kludge-p . t) ; speed up indentation in XEmacs
-    (c-basic-offset . 2)
+    (c-basic-offset . 4)
     (indent-tabs-mode . nil)
     (c-comment-only-line-offset . 0)
     (c-hanging-braces-alist . ((defun-open after)
@@ -122,11 +122,11 @@ Suitable for inclusion in `c-offsets-alist'."
                           ,(when (fboundp 'c-lineup-assignments)
                              'c-lineup-assignments)
                           ++))
-                        (label . /)
+                        (label . +)
                         (case-label . +)
                         (statement-case-open . +)
                         (statement-case-intro . +) ; case w/o {
-                        (access-label . /)
+                        (access-label . -3)
                         (innamespace . 0))))
   "Google C/C++ Programming Style.")
 

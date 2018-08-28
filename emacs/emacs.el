@@ -71,14 +71,13 @@
 (if (fboundp 'menu-bar-mode)    (menu-bar-mode 0))
 (if (fboundp 'tool-bar-mode)    (tool-bar-mode 0))
 
-;; hl-line+
-(require 'hl-line+)
-(defface my-hl-line
-	'((t (:underline t :foreground "Old Lace" :background "gray10")))
-	"*Face to use for `hl-line-face'." :group 'hl-line)
-(setq hl-line-face 'my-hl-line)
-(toggle-hl-line-when-idle 1)
-(hl-line-when-idle-interval 1)
+(global-hl-line-mode t)
+
+(show-paren-mode t)
+(setq show-paren-style 'parenthesis) 
+(setq show-paren-style 'expression) 
+(setq show-paren-style 'mixed)
+
 
 (setq mac-command-modifier 'meta)
 

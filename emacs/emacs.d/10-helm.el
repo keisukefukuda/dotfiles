@@ -1,41 +1,31 @@
 (require 'helm-config)
 (helm-mode 1)
 
-(add-to-list 'helm-completing-read-handlers-alist '(find-file . nil))
+; (add-to-list 'helm-completing-read-handlers-alist '(find-file . nil))
+
+;; (define-key global-map (kbd "C-S-;") 'helm-mini)
+(global-set-key (kbd "C-\\") 'helm-command-prefix)
+(global-set-key (kbd "M-y") 'helm-show-kill-ring)
 
 (define-key helm-map (kbd "C-h") 'delete-backward-char)
 (define-key helm-find-files-map (kbd "C-h") 'delete-backward-char)
 (define-key helm-find-files-map (kbd "TAB") 'helm-execute-persistent-action)
 (define-key helm-read-file-map (kbd "TAB") 'helm-execute-persistent-action)
 
-(defvar helm-source-emacs-commands
-  (helm-build-sync-source "Emacs commands"
-    :candidates (lambda()
-                  (let ((cmds))
-                    (mapatoms
-                     (lambda (elt) (when (commandp elt) (push elt cmds)))
-                     cmds)))
-    :coerce #'intern-soft
-    :action #'command-execute)
-  "A simple helm source for Emacs command")
+(when (executable-find "curl")
+  (setq helm-google-suggest-use-curl-p t))
 
-(defvar helm-source-emacs-commands-history
-  (helm-build-sync-source "Emacs commands history"
-    :candidates (lambda()
-                  (let ((cmds))
-                    (dolist (elem extended-command-history)
-                      (push (intern elem) cmds))
-                    cmds))
-    :coerce #'intern-soft
-    :action #'command-execute)
-  "Emacs commands history")
+(setq helm-split-window-in-side-p           t ; open helm buffer inside current window, not occupy whole other window
+      helm-move-to-line-cycle-in-source     t ; move to end or beginning of source when reaching top or bottom of source.
+      helm-ff-search-library-in-sexp        t ; search for library in `require' and `declare-function' sexp.
+      helm-scroll-amount                    8 ; scroll 8 lines other window using M-<next>/M-<prior>
+      helm-ff-file-name-history-use-recentf t
+      helm-echo-input-in-header-line t)
 
-(custom-set-variables
- '(helm-mini-default-sources '(helm-source-buffers-list
-                               helm-source-recentf
-                               helm-source-files-in-current-dir
-                               helm-source-emacs-commands-history
-                               helm-source-emacs-commands)))
+(setq helm-autoresize-max-height 0)
+(setq helm-autoresize-min-height 20)
+(helm-autoresize-mode 1)
 
-(define-key global-map (kbd "C-;") 'helm-mini)
-(define-key global-map (kbd "M-y") 'helm-show-kill-ring)
+(helm-mode 1)
+
+

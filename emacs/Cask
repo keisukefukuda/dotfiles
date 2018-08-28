@@ -19,6 +19,7 @@
 (depends-on "bison-mode")
 (depends-on "cask")
 (depends-on "cmake-mode")
+(depends-on "clang-format")
 (depends-on "company")
 (depends-on "dash")
 (depends-on "drag-stuff")
@@ -27,6 +28,7 @@
 (depends-on "f")
 (depends-on "flycheck")
 (depends-on "flycheck-cask")
+(depends-on "company-go")
 (depends-on "helm")
 (depends-on "htmlize")
 (depends-on "idle-highlight-mode")
@@ -58,7 +60,7 @@
 (depends-on "smartparens")
 ; (depends-on "slamhound")
 (depends-on "paredit")
-(depends-on "hl-line+")
+
 ;; Clojureに用途が限定されたパッケージではないが必要なもの
 (depends-on "rainbow-delimiters")
 
