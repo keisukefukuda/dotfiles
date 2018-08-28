@@ -80,7 +80,6 @@
 (depends-on "irony-eldoc")
 (depends-on "company-irony")
 (depends-on "flycheck-irony")
-(depends-on "rtags")
 
 ;; Haskell
 (depends-on "haskell-mode")
