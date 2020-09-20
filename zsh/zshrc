@@ -325,3 +325,18 @@ fi
 # added by travis gem
 [ -f /Users/keisukefukuda/.travis/travis.sh ] && source /Users/keisukefukuda/.travis/travis.sh
 
+export GITHUB_TOKEN=518970c2d8c6ca1db194446851176d4342ff5053
+export GHE_USER=kfukuda
+export GHE_SECRET=ed56c0bd178803d9064ec4ef8aba47b71e4be022
+
+export GOPATH=$HOME/go
+export GOROOT="/usr/local/Cellar/go/1.10.3/libexec"
+
+alias k=kubectl
+
+#------------------------------------------------------------
+kubeexec() {
+  cmd=$1
+  
+}
+

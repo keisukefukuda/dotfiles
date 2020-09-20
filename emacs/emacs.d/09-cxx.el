@@ -7,17 +7,38 @@
 (setq auto-mode-alist
       (append '(("\\.h" . c++-mode)) auto-mode-alist))
 
+(require 'google-c-style)
+
 ;; Coding style
 (add-hook 'c-mode-common-hook
           '(lambda()
              (google-set-c-style)
              (setq c-basic-offset 4)
-             (c-offsets-alist . ((innamespace . -)
-                                 (inextern-lang . 0)))))
+             (c-set-offset 'inextern-lang 0)))
 
 (add-hook 'c-mode-common-hook
           (lambda()
             (add-hook 'before-save-hook 'delete-trailing-whitespace nil 'local)))
+
+;; ggtags
+
+;; (require 'ggtags)
+;; (add-hook 'c-mode-common-hook
+          ;; (lambda()
+            ;; (when (derived-mode-p 'c-mode 'c++-mode)
+              ;; (ggtags-mode 1))))
+
+;; (setq ggtags-completing-read-function nil)
+
+;; (define-key ggtags-mode-map (kbd "C-c g s") 'ggtags-find-other-symbol)
+;; (define-key ggtags-mode-map (kbd "C-c g h") 'ggtags-view-tag-history)
+;; (define-key ggtags-mode-map (kbd "C-c g r") 'ggtags-find-reference)
+;; (define-key ggtags-mode-map (kbd "C-c g f") 'ggtags-find-file)
+;; (define-key ggtags-mode-map (kbd "C-c g c") 'ggtags-create-tags)
+;; (define-key ggtags-mode-map (kbd "C-c g u") 'ggtags-update-tags)
+
+;; (define-key ggtags-mode-map (kbd "M-,") 'pop-tag-mark)
+
 
 ;; http://qiita.com/alpha22jp/items/90f7f2ad4f8b1fa089f4
 ;; http://qiita.com/MitsutakaTakeda/items/2f526a85ad39424a8363
@@ -31,35 +52,4 @@
   (define-key company-search-map (kbd "C-n") 'company-select-next)
   (define-key company-search-map (kbd "C-p") 'company-select-previous)
   (define-key company-active-map (kbd "<tab>") 'company-complete-selection))
-
-;; (when (require 'flycheck nil 'noerror)
-;;   (custom-set-variables
-;;    ;; Show popup error window
-;;    '(flycheck-display-errors-function
-;;      (lambda (errors)
-;;        (let ((messages (mapcar #'flycheck-error-message errors)))
-;;          (popup-tip (mapconcat 'identity messages "\n")))))
-;;    '(flycheck-display-errors-delay 0.5))
-;;   (define-key flycheck-mode-map (kbd "C-M-n") 'flycheck-next-error)
-;;   (define-key flycheck-mode-map (kbd "C-M-p") 'flycheck-previous-error)
-;;   (add-hook 'c-mode-common-hook 'flycheck-mode))
-
-;; (eval-after-load "flycheck"
-;;   '(progn
-;;      (when (locate-library "flycheck-irony")
-;;        (flycheck-irony-setup))))
-
-;; (eval-after-load "irony"
-;;   '(progn
-;;      (custom-set-variables '(irony-additional-clang-options '("-std=c++11")))
-;;      (add-to-list 'company-backends 'company-irony)
-;;      (add-hook 'irony-mode-hook 'irony-cdb-autosetup-compile-options)
-;;      (add-hook 'c-mode-common-hook 'irony-mode)))
-
-;;      (add-hook 'irony-mode-hook
-;;                '(lambda () (if (and buffer-file-name
-;;                                     (file-remote-p buffer-file-name))
-;;                                (irony-mode 0)
-;;                              (irony-mode 1))))
-;;      (add-hook 'c-mode-common-hook 'irony-mode)))
 

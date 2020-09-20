@@ -17,6 +17,6 @@ ln -s ~/dotfiles/emacs/dot_emacs ~/.emacs
 
 echo cask install
 cd ~/.cask
-./bin/cask --verbose install
+cask --debug --verbose install
 
 

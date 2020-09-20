@@ -21,12 +21,22 @@ check_overwrite() {
         else
             return 1
         fi
+    elif [ -L $fname ]; then
+        if readlink $fname | grep $(pwd); then
+            return 1	
+        else
+            rm -f $fname
+            return 0
+        fi
     fi
 
     return 0
 }
 
 check_overwrite "$HOME/.tmux.conf" && {
-    ln -s $CWD/.tmux.conf $HOME/.tmux.conf
+    ln -s $CWD/tmux/tmux.conf $HOME/.tmux.conf
 }
 
+check_overwrite "$HOME/.gitconfig" && {
+    ln -s $CWD/gitconfig $HOME/.gitconfig
+}

@@ -32,7 +32,6 @@
   nil " sticky" nil
   (set-window-dedicated-p (selected-window) sticky-buffer-mode))
 
-
 ;;;;;;;;;;;;;;;;;;;; Misc settings
 
 (unless window-system

@@ -1,0 +1,9 @@
+[user]
+	name = Keisuke Fukuda
+	email = kfukuda@preferred.jp
+[core]
+	editor = vi
+[alias]
+    stage = add
+    unstage = reset HEAD
+
