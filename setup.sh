@@ -1,4 +1,5 @@
 #!/bin/sh
+set -ue
 
 CWD=`pwd`
 DIR=`echo $CWD | sed -e 's|.*/||'`
@@ -33,6 +34,24 @@ check_overwrite() {
     return 0
 }
 
+# -----------------------------------------------------------------------
+# Commands
+# -----------------------------------------------------------------------
+
+git submodule update --init --recursive
+
+check_overwrite "$HOME/.zprezto" && {
+    ln -s ./prezto $HOME/.zprezto
+}
+
+for rcfile in $(ls prezto/runcoms/ | grep -v README); do
+    SRC="prezto/runcoms/$rcfile"
+    DST="${HOME}/.${rcfile}"
+    check_overwrite $DST && {
+        ln -s $SRC $DST
+    }
+done
+
 check_overwrite "$HOME/.tmux.conf" && {
     ln -s $CWD/tmux/tmux.conf $HOME/.tmux.conf
 }
@@ -40,3 +59,4 @@ check_overwrite "$HOME/.tmux.conf" && {
 check_overwrite "$HOME/.gitconfig" && {
     ln -s $CWD/gitconfig $HOME/.gitconfig
 }
+
