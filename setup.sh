@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/bin/bash
 set -ue
 
 CWD=`pwd`
@@ -34,8 +34,16 @@ check_overwrite() {
     return 0
 }
 
+# starship
+
+if ! which starship 2>/dev/null; then
+	pushd /tmp
+	curl -fsSL https://starship.rs/install.sh >starship_install.sh
+	bash starship_install.sh -b $HOME/usr/bin -y
+fi
+
 # -----------------------------------------------------------------------
-# Commands
+# zsh
 # -----------------------------------------------------------------------
 
 git submodule update --init --recursive
@@ -44,8 +52,10 @@ check_overwrite "$HOME/.zprezto" && {
     ln -s ./prezto $HOME/.zprezto
 }
 
+REPOS_DIR=$(cd $(dirname $0); pwd)
+
 for rcfile in $(ls prezto/runcoms/ | grep -v README); do
-    SRC="prezto/runcoms/$rcfile"
+    SRC="${REPOS_DIR}/prezto/runcoms/$rcfile"
     DST="${HOME}/.${rcfile}"
     check_overwrite $DST && {
         ln -s $SRC $DST
