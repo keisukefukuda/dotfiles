@@ -50,7 +50,9 @@ fi
 # zsh
 # -----------------------------------------------------------------------
 
-git submodule update --init --recursive
+if [[ "${SKIP_SUBMODULE:-0}" != 0 ]]; then
+	git submodule update --init --recursive
+fi
 
 check_overwrite "$HOME/.zprezto" && {
     ln -s ./prezto $HOME/.zprezto
