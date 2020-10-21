@@ -37,10 +37,13 @@ check_overwrite() {
 # starship
 
 if ! which starship 2>/dev/null; then
-	pushd /tmp
-	curl -fsSL https://starship.rs/install.sh >starship_install.sh
-	mkdir -p $HOME/usr/bin
-	bash starship_install.sh -b $HOME/usr/bin -y
+    if [[ ! -f $HOME/usr/bin/starship ]]; then
+	    pushd /tmp
+	    curl -fsSL https://starship.rs/install.sh >starship_install.sh
+	    mkdir -p $HOME/usr/bin
+	    bash starship_install.sh -b $HOME/usr/bin -y
+        popd
+    fi
 fi
 
 # -----------------------------------------------------------------------
