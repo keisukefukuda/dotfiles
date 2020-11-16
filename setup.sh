@@ -55,7 +55,7 @@ if [[ "${SKIP_SUBMODULE:-0}" != 0 ]]; then
 fi
 
 check_overwrite "$HOME/.zprezto" && {
-    ln -s ./prezto $HOME/.zprezto
+    ln -s $PWD/prezto $HOME/.zprezto
 }
 
 REPOS_DIR=$(cd $(dirname $0); pwd)
